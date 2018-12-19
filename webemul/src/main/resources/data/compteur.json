@@ -1,0 +1,244 @@
+{
+  "suiviIndispo" : [ ],
+  "suiviIrisRg" : [ {
+    "nomCouloir" : "PACAC1",
+    "interne1" : 2769,
+    "interne2" : 8051,
+    "externe1" : 151578,
+    "externe2" : 97116,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "PACAC2",
+    "interne1" : 3708,
+    "interne2" : 5278,
+    "externe1" : 148472,
+    "externe2" : 80046,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  } ],
+  "suiviIrisRmp" : [ {
+    "nomCouloir" : "MNH",
+    "interne1" : 0,
+    "interne2" : 1731,
+    "externe1" : 19780,
+    "externe2" : 11368,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "CRPCEN",
+    "interne1" : 578,
+    "interne2" : 580,
+    "externe1" : 6483,
+    "externe2" : 4687,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "CAVIMAC",
+    "interne1" : 233,
+    "interne2" : 262,
+    "externe1" : 2877,
+    "externe2" : 1750,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "INTERIALE",
+    "interne1" : 279,
+    "interne2" : 499,
+    "externe1" : 5829,
+    "externe2" : 4979,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "ENIM",
+    "interne1" : 141,
+    "interne2" : 38,
+    "externe1" : 5798,
+    "externe2" : 4435,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "LMG",
+    "interne1" : 4216,
+    "interne2" : 732,
+    "externe1" : 43430,
+    "externe2" : 26627,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "MFPS-SOLSANTIS",
+    "interne1" : 1051,
+    "interne2" : 4798,
+    "externe1" : 66212,
+    "externe2" : 39386,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "MFPS-HFP",
+    "interne1" : 248,
+    "interne2" : 710,
+    "externe1" : 14257,
+    "externe2" : 8678,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "CANSSM",
+    "interne1" : 980,
+    "interne2" : 360,
+    "externe1" : 14862,
+    "externe2" : 14130,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "LMDE",
+    "interne1" : 794,
+    "interne2" : 405,
+    "externe1" : 15692,
+    "externe2" : 10554,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  }, {
+    "nomCouloir" : "CAMIEG",
+    "interne1" : 6909,
+    "interne2" : 240,
+    "externe1" : 26578,
+    "externe2" : 16231,
+    "externeWe1" : null,
+    "externeWe2" : null,
+    "cumul" : null
+  } ],
+  "suiviRetourNxRg" : [ {
+    "nomCouloir" : "PACAC1",
+    "nbEnrNXLus" : 62032,
+    "nbEnrNXLus2" : 3966,
+    "nbEnrNXLus3" : 12250,
+    "total" : null
+  }, {
+    "nomCouloir" : "PACAC2",
+    "nbEnrNXLus" : 64799,
+    "nbEnrNXLus2" : 3673,
+    "nbEnrNXLus3" : 11593,
+    "total" : null
+  } ],
+  "suiviRetourNxRmp" : [ {
+    "nomCouloir" : "MNH",
+    "nbEnrNXLus" : 11548,
+    "nbEnrNXLus2" : 1231,
+    "nbEnrNXLus3" : 3389,
+    "total" : null
+  }, {
+    "nomCouloir" : "CRPCEN",
+    "nbEnrNXLus" : 5154,
+    "nbEnrNXLus2" : 808,
+    "nbEnrNXLus3" : 1479,
+    "total" : null
+  }, {
+    "nomCouloir" : "CAVIMAC",
+    "nbEnrNXLus" : 2415,
+    "nbEnrNXLus2" : 174,
+    "nbEnrNXLus3" : 735,
+    "total" : null
+  }, {
+    "nomCouloir" : "INTERIALE",
+    "nbEnrNXLus" : 4818,
+    "nbEnrNXLus2" : 462,
+    "nbEnrNXLus3" : 1400,
+    "total" : null
+  }, {
+    "nomCouloir" : "ENIM",
+    "nbEnrNXLus" : 5250,
+    "nbEnrNXLus2" : 677,
+    "nbEnrNXLus3" : 1376,
+    "total" : null
+  }, {
+    "nomCouloir" : "LMG",
+    "nbEnrNXLus" : 32791,
+    "nbEnrNXLus2" : 4041,
+    "nbEnrNXLus3" : 8686,
+    "total" : null
+  }, {
+    "nomCouloir" : "MFPS-SOLSANTIS",
+    "nbEnrNXLus" : 42760,
+    "nbEnrNXLus2" : 4788,
+    "nbEnrNXLus3" : 12163,
+    "total" : null
+  }, {
+    "nomCouloir" : "MFPS-HFP",
+    "nbEnrNXLus" : 10289,
+    "nbEnrNXLus2" : 1332,
+    "nbEnrNXLus3" : 2802,
+    "total" : null
+  }, {
+    "nomCouloir" : "CANSSM",
+    "nbEnrNXLus" : 11076,
+    "nbEnrNXLus2" : 945,
+    "nbEnrNXLus3" : 2058,
+    "total" : null
+  }, {
+    "nomCouloir" : "LMDE",
+    "nbEnrNXLus" : 8789,
+    "nbEnrNXLus2" : 1392,
+    "nbEnrNXLus3" : 3345,
+    "total" : null
+  }, {
+    "nomCouloir" : "CAMIEG",
+    "nbEnrNXLus" : 46777,
+    "nbEnrNXLus2" : 2836,
+    "nbEnrNXLus3" : 5215,
+    "total" : null
+  } ],
+  "suiviFluxProgresRg" : [ {
+    "nomCouloir" : "PACAC1",
+    "lectFluxProgres" : 62032
+  }, {
+    "nomCouloir" : "PACAC2",
+    "lectFluxProgres" : 64799
+  } ],
+  "suiviFluxProgresRmp" : [ {
+    "nomCouloir" : "MNH",
+    "lectFluxProgres" : 11548
+  }, {
+    "nomCouloir" : "CRPCEN",
+    "lectFluxProgres" : 5154
+  }, {
+    "nomCouloir" : "CAVIMAC",
+    "lectFluxProgres" : 2415
+  }, {
+    "nomCouloir" : "INTERIALE",
+    "lectFluxProgres" : 4818
+  }, {
+    "nomCouloir" : "ENIM",
+    "lectFluxProgres" : 5250
+  }, {
+    "nomCouloir" : "LMG",
+    "lectFluxProgres" : 32791
+  }, {
+    "nomCouloir" : "MFPS-SOLSANTIS",
+    "lectFluxProgres" : 42760
+  }, {
+    "nomCouloir" : "MFPS-HFP",
+    "lectFluxProgres" : 10289
+  }, {
+    "nomCouloir" : "CANSSM",
+    "lectFluxProgres" : 11076
+  }, {
+    "nomCouloir" : "LMDE",
+    "lectFluxProgres" : 8789
+  }, {
+    "nomCouloir" : "CAMIEG",
+    "lectFluxProgres" : 46777
+  } ],
+  "suiviIncident" : [ ]
+}

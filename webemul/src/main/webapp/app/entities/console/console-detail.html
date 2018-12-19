@@ -1,0 +1,59 @@
+
+<div>
+    <h2><span>Console</span> {{vm.console.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Abbreviation</span></dt>
+        <dd>
+            <span>{{vm.console.abbreviation}}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.console.name}}</span>
+        </dd>
+        <dt><span>Path Icon</span></dt>
+        <dd>
+            <span>{{vm.console.pathIcon}}</span>
+        </dd>
+        <dt><span>Manufacturer</span></dt>
+        <dd>
+            <span>{{vm.console.manufacturer}}</span>
+        </dd>
+        <dt><span>Generation</span></dt>
+        <dd>
+            <span>{{vm.console.generation}}</span>
+        </dd>
+        <dt><span>Bits</span></dt>
+        <dd>
+            <span>{{vm.console.bits}}</span>
+        </dd>
+        <dt><span>Resume</span></dt>
+        <dd>
+            <span>{{vm.console.resume}}</span>
+        </dd>
+        <dt><span>Default Emulator</span></dt>
+        <dd>        
+        	<span ng-repeat="emulators in vm.console.emulators">
+				<a ng-show="emulators.id==vm.console.defaultEmulatorId" ui-sref="emulator-detail({id:vm.console.defaultEmulatorId})">{{emulators.name}}</a>
+			</span>
+        </dd>
+        <dt><span>Emulators</span></dt>
+        <dd>
+            <span ng-repeat="emulators in vm.console.emulators">
+                <a ui-sref="emulator-detail({id: emulators.id})">{{emulators.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="console-detail.edit({id:vm.console.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

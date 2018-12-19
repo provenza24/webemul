@@ -1,0 +1,45 @@
+
+<div>
+    <h2><span>Rom</span> {{vm.rom.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{vm.rom.name}}</span>
+        </dd>
+        <dt><span>Path File</span></dt>
+        <dd>
+            <span>{{vm.rom.pathFile}}</span>
+        </dd>
+        <dt><span>Extension</span></dt>
+        <dd>
+            <span>{{vm.rom.extension}}</span>
+        </dd>
+        <dt><span>Path Cover</span></dt>
+        <dd>
+            <span>{{vm.rom.pathCover}}</span>
+        </dd>
+        <dt><span>Console</span></dt>
+        <dd>
+            <a ui-sref="console-detail({id:vm.rom.consoleId})">{{vm.rom.consoleId}}</a>
+        </dd>
+        <dt><span>Genres</span></dt>
+        <dd>
+            <span ng-repeat="genres in vm.rom.genres">
+                <a ui-sref="genre-detail({id: genres.id})">{{genres.id}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="rom-detail.edit({id:vm.rom.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

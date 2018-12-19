@@ -1,0 +1,76 @@
+<div>
+    <h2>Roms</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="rom.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Rom
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="pathCover"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="consoleId"><span>Console</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Genres</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="rom in vm.roms track by rom.id">
+                    <td><a ui-sref="rom-detail({id:rom.id})">{{rom.id}}</a></td>
+                    <td>{{rom.name}}</td>
+                    <td>{{rom.pathFile}}</td>
+                    <td>{{rom.extension}}</td>
+                    <td>{{rom.pathCover}}</td>
+                    <td>
+                        <a ui-sref="console-detail({id:rom.consoleId})">{{rom.consoleId}}</a>
+                    </td>
+                    <td>
+                    	<span ng-repeat="genre in rom.genres">
+                        	{{genre.name}}{{$last ? '' : ', '}}
+                        </span>                        
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="rom-detail({id:rom.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="rom.edit({id:rom.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="rom.delete({id:rom.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>

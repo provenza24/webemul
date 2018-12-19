@@ -1,0 +1,69 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "defaultEmulator",
+            "otherEntityName": "emulator",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "console"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "roms",
+            "otherEntityName": "rom",
+            "otherEntityRelationshipName": "console"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "emulators",
+            "otherEntityName": "emulator",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "abbreviation",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pathIcon",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "manufacturer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "generation",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "bits",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "resume",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20181214132229",
+    "entityTableName": "console",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

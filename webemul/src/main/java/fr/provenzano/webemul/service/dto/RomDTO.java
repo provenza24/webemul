@@ -1,0 +1,118 @@
+package fr.provenzano.webemul.service.dto;
+
+
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
+
+/**
+ * A DTO for the Rom entity.
+ */
+public class RomDTO implements Serializable {
+
+    private Long id;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String pathFile;
+
+    private String extension;
+
+    private String pathCover;
+
+    private Long consoleId;
+
+    private Set<GenreDTO> genres = new HashSet<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPathFile() {
+        return pathFile;
+    }
+
+    public void setPathFile(String pathFile) {
+        this.pathFile = pathFile;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getPathCover() {
+        return pathCover;
+    }
+
+    public void setPathCover(String pathCover) {
+        this.pathCover = pathCover;
+    }
+
+    public Long getConsoleId() {
+        return consoleId;
+    }
+
+    public void setConsoleId(Long consoleId) {
+        this.consoleId = consoleId;
+    }
+
+    public Set<GenreDTO> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<GenreDTO> genres) {
+        this.genres = genres;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        RomDTO romDTO = (RomDTO) o;
+        if(romDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), romDTO.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "RomDTO{" +
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", pathFile='" + getPathFile() + "'" +
+            ", extension='" + getExtension() + "'" +
+            ", pathCover='" + getPathCover() + "'" +
+            "}";
+    }
+}

@@ -1,0 +1,88 @@
+html, 
+body {
+    height: 100%;
+}
+
+/* ==========================================================================
+Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
+========================================================================== */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+/* ==========================================================================
+Development Ribbon
+========================================================================== */
+.ribbon {
+    background-color: #a00;
+    box-shadow: 0 0 10px #888;
+    left: -3.5em;
+    moz-box-shadow: 0 0 10px #888;
+    moz-transform: rotate(-45deg);
+    ms-transform: rotate(-45deg);
+    o-transform: rotate(-45deg);
+    overflow: hidden;
+    position: absolute;
+    top: 40px;
+    transform: rotate(-45deg);
+    webkit-box-shadow: 0 0 10px #888;
+    webkit-transform: rotate(-45deg);
+    white-space: nowrap;
+    width: 15em;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.ribbon a {
+    border: 1px solid #faa;
+    color: #fff;
+    display: block;
+    font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 1px 0;
+    padding: 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 5px #444;
+    pointer-events: none;
+}
+
+inline-headers img, .inline-headers h5, .inline-headers h3, .inline-headers h2, .inline-headers h4 {
+  display: inline-block;
+  vertical-align: baseline;
+  cursor: default;
+}
+
+
+.box:hover
+{
+    box-shadow: 0px 0px 10px #d4d4d4;
+}
+
+.table th {
+   text-align: center;   
+}
+
+.table td {
+   text-align: center;   
+}
+
+.th-icon {
+	width:80px;
+}
+
+.jumbotron {
+	height:120px;
+	margin-bottom:0px;
+	padding-left:0px;
+	padding-right:0px;
+	border-radius:0px;	
+}
+
+h1.page-header {
+	margin-top: 20px;
+	color: #0B6B9E;
+	padding-bottom: 9px;
+	margin: 40px 0 20px;
+	border-bottom: 1px solid #eee;
+	font-size: 26px;
+}

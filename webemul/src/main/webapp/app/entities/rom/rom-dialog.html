@@ -1,0 +1,71 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRomLabel">Create or edit a Rom</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.rom.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.rom.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.rom.name"
+                    required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_pathFile">Path File</label>
+            <input type="text" class="form-control" name="pathFile" id="field_pathFile"
+                    ng-model="vm.rom.pathFile"
+                    required/>
+            <div ng-show="editForm.pathFile.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.pathFile.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_extension">Extension</label>
+            <input type="text" class="form-control" name="extension" id="field_extension"
+                    ng-model="vm.rom.extension"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_pathCover">Path Cover</label>
+            <input type="text" class="form-control" name="pathCover" id="field_pathCover"
+                    ng-model="vm.rom.pathCover"
+                    />
+        </div>
+        <div class="form-group">
+            <label for="field_console">Console</label>
+            <select class="form-control" id="field_console" name="console" ng-model="vm.rom.consoleId" ng-options="console.id as console.name for console in vm.consoles">
+                <option value=""></option>
+            </select>                       
+        </div>      
+        <div class="form-group">
+            <label for="field_genres">Genres</label>
+            <select class="form-control" id="field_genres" multiple name="genres" ng-model="vm.rom.genres" ng-options="genre as genre.name for genre in vm.genres | orderBy:'name' track by genre.id"></select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

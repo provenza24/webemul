@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Console.
+    -->
+    <changeSet id="20181214132229-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="default_emulator_id"
+                                 baseTableName="console"
+                                 constraintName="fk_console_default_emulator_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="emulator"/>
+
+        <addForeignKeyConstraint baseColumnNames="consoles_id"
+                                 baseTableName="console_emulators"
+                                 constraintName="fk_console_emulators_consoles_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="console"/>
+        <addForeignKeyConstraint baseColumnNames="emulators_id"
+                                 baseTableName="console_emulators"
+                                 constraintName="fk_console_emulators_emulators_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="emulator"/>
+        
+    </changeSet>
+</databaseChangeLog>

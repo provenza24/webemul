@@ -1,0 +1,48 @@
+entity Console {
+	abbreviation String required
+    name String required
+    pathIcon String 
+    manufacturer String
+    generation Integer
+    bits Integer    
+    resume String 
+}
+
+entity Rom {
+	name String required        
+    pathFile String required
+    extension String
+    pathCover String
+}
+
+entity Emulator {
+	name String required
+    version String required
+    pathIcon String
+}
+
+entity Genre {
+	name String required
+    igdbID Integer required
+}
+
+relationship OneToMany {
+  Console{roms} to Rom
+}
+
+relationship ManyToMany {
+  Console{emulators} to Emulator
+}
+
+relationship ManyToMany {
+  Rom{genres} to Genre
+}
+
+relationship OneToOne {
+  Console{defaultEmulator} to Emulator
+}
+
+dto * with mapstruct
+service all with serviceImpl
+
+paginate Rom with pagination

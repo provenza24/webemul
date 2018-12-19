@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ACCESSECURISE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation='ControleAcces.xsd'>
+
+	<BEAN_SECURITE_SESSION>ARAMISBEAN</BEAN_SECURITE_SESSION>
+  
+	<!-- Donnees utilisateur nécessaire pour le bouchon de sécurité -->
+  
+	<!-- code ISM-UM de l'agent -->
+	<ATTRIBUTARAMIS ATTRIBUTSESSION="codeAgent">E</ATTRIBUTARAMIS>
+	
+	<!-- Civilite -->
+	<ATTRIBUTARAMIS ATTRIBUTSESSION="civilite">P</ATTRIBUTARAMIS>
+	
+	<!-- Nom de l'agent -->
+	<ATTRIBUTARAMIS ATTRIBUTSESSION="nomAgent">F</ATTRIBUTARAMIS>
+	
+	<!-- Prenom de l'agent -->
+	<ATTRIBUTARAMIS ATTRIBUTSESSION="prenomAgent">G</ATTRIBUTARAMIS>
+	
+	<!-- Identifiant d'agent (19 c). -->
+	<ATTRIBUTARAMIS ATTRIBUTSESSION="numeroAgent">H</ATTRIBUTARAMIS>
+	
+	<!-- Identifiant d'agent (19 c). -->
+	<ATTRIBUTARAMIS ATTRIBUTSESSION="site">R</ATTRIBUTARAMIS>
+
+	<SSO_SYSTEM SERVICE_REQUIS="vrai">
+	
+		<!-- CONFIG LOCALE -->
+		<NOM>DL06_WEBEMUL</NOM>
+        <SERVICE>DL06_WEBEMUL_UTILISATEUR</SERVICE>
+        <SERVICE>DL06_WEBEMUL_ADMIN</SERVICE>
+        <LISTE_SERVICE>LISTE_SERVICE</LISTE_SERVICE>
+	
+		<!-- CONFIG PRD -->
+		<!-- >NOM>DL06_TIMESHEET</NOM>
+        <SERVICE>DL06_TIMESHEET_USER</SERVICE>
+        <SERVICE>DL06_TIMESHEET_ADMIN</SERVICE>        
+        <LISTE_SERVICE>LISTE_SERVICE</LISTE_SERVICE-->        
+        
+        
+	</SSO_SYSTEM>
+</ACCESSECURISE>
