@@ -2,18 +2,16 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "relationshipName": "defaultEmulator",
-            "otherEntityName": "emulator",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "console"
-        },
-        {
             "relationshipType": "one-to-many",
             "relationshipName": "roms",
             "otherEntityName": "rom",
             "otherEntityRelationshipName": "console"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "defaultEmulator",
+            "otherEntityName": "emulator",
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-many",

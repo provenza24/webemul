@@ -14,8 +14,8 @@ public interface ConsoleMapper extends EntityMapper<ConsoleDTO, Console> {
     @Mapping(source = "defaultEmulator.id", target = "defaultEmulatorId")
     ConsoleDTO toDto(Console console);
 
-    @Mapping(source = "defaultEmulatorId", target = "defaultEmulator")
     @Mapping(target = "roms", ignore = true)
+    @Mapping(source = "defaultEmulatorId", target = "defaultEmulator")
     Console toEntity(ConsoleDTO consoleDTO);
 
     default Console fromId(Long id) {

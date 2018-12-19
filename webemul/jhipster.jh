@@ -38,7 +38,7 @@ relationship ManyToMany {
   Rom{genres} to Genre
 }
 
-relationship OneToOne {
+relationship ManyToOne {
   Console{defaultEmulator} to Emulator
 }
 

@@ -46,13 +46,12 @@ public class Console implements Serializable {
     @Column(name = "resume")
     private String resume;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Emulator defaultEmulator;
-
     @OneToMany(mappedBy = "console")
     @JsonIgnore
     private Set<Rom> roms = new HashSet<>();
+
+    @ManyToOne
+    private Emulator defaultEmulator;
 
     @ManyToMany
     @JoinTable(name = "console_emulators",
@@ -160,19 +159,6 @@ public class Console implements Serializable {
         this.resume = resume;
     }
 
-    public Emulator getDefaultEmulator() {
-        return defaultEmulator;
-    }
-
-    public Console defaultEmulator(Emulator emulator) {
-        this.defaultEmulator = emulator;
-        return this;
-    }
-
-    public void setDefaultEmulator(Emulator emulator) {
-        this.defaultEmulator = emulator;
-    }
-
     public Set<Rom> getRoms() {
         return roms;
     }
@@ -196,6 +182,19 @@ public class Console implements Serializable {
 
     public void setRoms(Set<Rom> roms) {
         this.roms = roms;
+    }
+
+    public Emulator getDefaultEmulator() {
+        return defaultEmulator;
+    }
+
+    public Console defaultEmulator(Emulator emulator) {
+        this.defaultEmulator = emulator;
+        return this;
+    }
+
+    public void setDefaultEmulator(Emulator emulator) {
+        this.defaultEmulator = emulator;
     }
 
     public Set<Emulator> getEmulators() {
