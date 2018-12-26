@@ -5,9 +5,10 @@
         .module('webApp')
         .config(stateConfig);
 
-    stateConfig.$inject = ['$stateProvider'];
+    stateConfig.$inject = ['$stateProvider', '$compileProvider'];
 
-    function stateConfig($stateProvider) {
+    function stateConfig($stateProvider, $compileProvider) {
+    	//$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|f):/);
         $stateProvider.state('app', {
             abstract: true,
             views: {

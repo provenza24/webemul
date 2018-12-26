@@ -11,7 +11,7 @@
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/, /.*doc.*/], true);
 
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/rom');
 
         $httpProvider.interceptors.push('errorHandlerInterceptor');
         $httpProvider.interceptors.push('authExpiredInterceptor');

@@ -35,7 +35,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="console in vm.consoles track by console.id">
-                    <td><a ui-sref="console-detail({id:console.id})"><img ng-show="console.pathIcon" style="width:32px; margin-right:10px" ng-src="{{console.pathIcon}}" alt="..."></a></td>
+                    <td><a ui-sref="console-detail({id:console.id})"><img ng-show="console.pathIcon" style="width:40px; margin-right:10px" ng-src="{{console.pathIcon}}" alt="..."></a></td>
                     <!-- td><img ng-show="console.pathIcon" style="width:32px" ng-src="{{console.pathIcon}}" alt="..."></td-->
                     <!-- td>{{console.abbreviation}}</td-->
                     <td>{{console.name}}</td>                    

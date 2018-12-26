@@ -5,9 +5,9 @@
         .module('webApp')
         .controller('RomController', RomController);
 
-    RomController.$inject = ['$state', 'Rom', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    RomController.$inject = ['$state', 'Rom','Console', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', '$sce'];
 
-    function RomController($state, Rom, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function RomController($state, Rom, Console, ParseLinks, AlertService, paginationConstants, pagingParams, $sce) {
 
         var vm = this;
 
@@ -16,6 +16,8 @@
         vm.reverse = pagingParams.ascending;
         vm.transition = transition;
         vm.itemsPerPage = paginationConstants.itemsPerPage;
+        vm.consoles = Console.query();
+        vm.getTrustedResourceUrl = getTrustedResourceUrl;
 
         loadAll();
 
@@ -56,5 +58,12 @@
                 search: vm.currentSearch
             });
         }
+        
+        function getTrustedResourceUrl (url){
+        	//alert(url);
+        	//return $sce.getTrustedResourceUrl(url)
+        	var test = $sce.getTrustedResourceUrl('f:/NES_1.png');
+        	return test;
+        };
     }
 })();

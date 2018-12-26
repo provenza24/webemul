@@ -1,16 +1,19 @@
 package fr.provenzano.webemul.service.impl;
 
-import fr.provenzano.webemul.service.RomService;
-import fr.provenzano.webemul.domain.Rom;
-import fr.provenzano.webemul.repository.RomRepository;
-import fr.provenzano.webemul.service.dto.RomDTO;
-import fr.provenzano.webemul.service.mapper.RomMapper;
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import fr.provenzano.webemul.domain.Rom;
+import fr.provenzano.webemul.repository.RomRepository;
+import fr.provenzano.webemul.service.RomService;
+import fr.provenzano.webemul.service.dto.RomDTO;
+import fr.provenzano.webemul.service.mapper.RomMapper;
 
 
 /**
@@ -69,7 +72,7 @@ public class RomServiceImpl implements RomService {
     @Transactional(readOnly = true)
     public RomDTO findOne(Long id) {
         log.debug("Request to get Rom : {}", id);
-        Rom rom = romRepository.findOneWithEagerRelationships(id);
+        Rom rom = romRepository.findOneWithEagerRelationships(id);       
         return romMapper.toDto(rom);
     }
 

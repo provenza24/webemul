@@ -14,16 +14,17 @@
         </div>
     </div>
     <br/>
+        
     <div class="table-responsive">
-        <table class="jh-table table table-striped">
+        <table class="jh-table table table-striped table-hover">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                   <th jh-sort-by="consoleId"><span>Console</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="pathCover"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="consoleId"><span>Console</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!-- >th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th-->
+                    <!-- th jh-sort-by="pathCover" style="max-width:100px"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th-->                    
                     <th><span>Genres</span></th>
                     <th></th>
                 </tr>
@@ -31,13 +32,16 @@
             <tbody>
                 <tr ng-repeat="rom in vm.roms track by rom.id">
                     <td><a ui-sref="rom-detail({id:rom.id})">{{rom.id}}</a></td>
-                    <td>{{rom.name}}</td>
-                    <td>{{rom.pathFile}}</td>
-                    <td>{{rom.extension}}</td>
-                    <td>{{rom.pathCover}}</td>
+                    <!-- th><img class="box" ng-src="{{rom.pathCover | trusted}}" alt="..."></th-->
                     <td>
-                        <a ui-sref="console-detail({id:rom.consoleId})">{{rom.consoleId}}</a>
+                    	<span ng-repeat="console in vm.consoles">
+                    		<a ng-show="rom.consoleId==console.id" ui-sref="console-detail({id:rom.consoleId})"><img ng-show="console.pathIcon" style="width:40px; margin-right:10px" ng-src="{{console.pathIcon}}" alt="..."></a>
+                    	</span>                        
                     </td>
+                    <td>{{rom.name}}</td>
+                    <!-- td>{{rom.pathFile}}</td>
+                    <td>{{rom.extension}}</td-->
+                    <!-- td>{{rom.pathCover}}</td-->                    
                     <td>
                     	<span ng-repeat="genre in rom.genres">
                         	{{genre.name}}{{$last ? '' : ', '}}
@@ -73,4 +77,5 @@
         <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
         <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
+            
 </div>
