@@ -39,7 +39,17 @@
         },
         {
             "fieldName": "pathIcon",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pathControllerIcon",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "manufacturer",
@@ -55,6 +65,10 @@
         },
         {
             "fieldName": "resume",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pathRomsFolder",
             "fieldType": "String"
         }
     ],

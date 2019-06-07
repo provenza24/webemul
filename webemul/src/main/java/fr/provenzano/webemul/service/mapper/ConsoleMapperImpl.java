@@ -72,6 +72,8 @@ public class ConsoleMapperImpl implements ConsoleMapper {
         consoleDTO.setBits( console.getBits() );
         consoleDTO.setResume( console.getResume() );
         consoleDTO.setEmulators( emulatorSetToEmulatorDTOSet( console.getEmulators() ) );
+        consoleDTO.setPathControllerIcon( console.getPathControllerIcon() );
+        consoleDTO.setPathRomsFolder( console.getPathRomsFolder() );
 
         return consoleDTO;
     }
@@ -94,7 +96,9 @@ public class ConsoleMapperImpl implements ConsoleMapper {
         console.setBits( consoleDTO.getBits() );
         console.setResume( consoleDTO.getResume() );
         console.setEmulators( emulatorDTOSetToEmulatorSet( consoleDTO.getEmulators() ) );
-
+        console.setPathControllerIcon( consoleDTO.getPathControllerIcon() );
+        console.setPathRomsFolder( consoleDTO.getPathRomsFolder() );
+        
         return console;
     }
 

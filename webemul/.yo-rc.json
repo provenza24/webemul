@@ -6,7 +6,7 @@
     "jhipsterVersion": "4.14.1",
     "baseName": "webEMUL",
     "packageName": "fr.provenzano.webemul",
-    "packageFolder": "fr/cnamts/cti_pacac/webemul",
+    "packageFolder": "fr/provenzano/webemul",
     "serverPort": "8081",
     "authenticationType": "jwt",
     "cacheProvider": "no",

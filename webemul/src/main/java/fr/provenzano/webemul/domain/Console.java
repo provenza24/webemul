@@ -31,8 +31,13 @@ public class Console implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "path_icon")
+    @NotNull
+    @Column(name = "path_icon", nullable = false)
     private String pathIcon;
+
+    @NotNull
+    @Column(name = "path_controller_icon", nullable = false)
+    private String pathControllerIcon;
 
     @Column(name = "manufacturer")
     private String manufacturer;
@@ -45,6 +50,9 @@ public class Console implements Serializable {
 
     @Column(name = "resume")
     private String resume;
+
+    @Column(name = "path_roms_folder")
+    private String pathRomsFolder;
 
     @OneToMany(mappedBy = "console")
     @JsonIgnore
@@ -107,6 +115,19 @@ public class Console implements Serializable {
         this.pathIcon = pathIcon;
     }
 
+    public String getPathControllerIcon() {
+        return pathControllerIcon;
+    }
+
+    public Console pathControllerIcon(String pathControllerIcon) {
+        this.pathControllerIcon = pathControllerIcon;
+        return this;
+    }
+
+    public void setPathControllerIcon(String pathControllerIcon) {
+        this.pathControllerIcon = pathControllerIcon;
+    }
+
     public String getManufacturer() {
         return manufacturer;
     }
@@ -157,6 +178,19 @@ public class Console implements Serializable {
 
     public void setResume(String resume) {
         this.resume = resume;
+    }
+
+    public String getPathRomsFolder() {
+        return pathRomsFolder;
+    }
+
+    public Console pathRomsFolder(String pathRomsFolder) {
+        this.pathRomsFolder = pathRomsFolder;
+        return this;
+    }
+
+    public void setPathRomsFolder(String pathRomsFolder) {
+        this.pathRomsFolder = pathRomsFolder;
     }
 
     public Set<Rom> getRoms() {
@@ -248,10 +282,12 @@ public class Console implements Serializable {
             ", abbreviation='" + getAbbreviation() + "'" +
             ", name='" + getName() + "'" +
             ", pathIcon='" + getPathIcon() + "'" +
+            ", pathControllerIcon='" + getPathControllerIcon() + "'" +
             ", manufacturer='" + getManufacturer() + "'" +
             ", generation=" + getGeneration() +
             ", bits=" + getBits() +
             ", resume='" + getResume() + "'" +
+            ", pathRomsFolder='" + getPathRomsFolder() + "'" +
             "}";
     }
 }

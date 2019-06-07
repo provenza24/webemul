@@ -98,10 +98,12 @@
                                 abbreviation: null,
                                 name: null,
                                 pathIcon: null,
+                                pathControllerIcon: null,
                                 manufacturer: null,
                                 generation: null,
                                 bits: null,
                                 resume: null,
+                                pathRomsFolder: null,
                                 id: null
                             };
                         }

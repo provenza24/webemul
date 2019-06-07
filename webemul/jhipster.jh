@@ -1,11 +1,13 @@
 entity Console {
 	abbreviation String required
     name String required
-    pathIcon String 
+    pathIcon String required
+    pathControllerIcon String required
     manufacturer String
     generation Integer
     bits Integer    
     resume String 
+    pathRomsFolder String
 }
 
 entity Rom {

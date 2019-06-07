@@ -20,7 +20,11 @@ public class ConsoleDTO implements Serializable {
     @NotNull
     private String name;
 
+    @NotNull
     private String pathIcon;
+
+    @NotNull
+    private String pathControllerIcon;
 
     private String manufacturer;
 
@@ -29,6 +33,8 @@ public class ConsoleDTO implements Serializable {
     private Integer bits;
 
     private String resume;
+
+    private String pathRomsFolder;
 
     private Long defaultEmulatorId;
 
@@ -66,6 +72,14 @@ public class ConsoleDTO implements Serializable {
         this.pathIcon = pathIcon;
     }
 
+    public String getPathControllerIcon() {
+        return pathControllerIcon;
+    }
+
+    public void setPathControllerIcon(String pathControllerIcon) {
+        this.pathControllerIcon = pathControllerIcon;
+    }
+
     public String getManufacturer() {
         return manufacturer;
     }
@@ -96,6 +110,14 @@ public class ConsoleDTO implements Serializable {
 
     public void setResume(String resume) {
         this.resume = resume;
+    }
+
+    public String getPathRomsFolder() {
+        return pathRomsFolder;
+    }
+
+    public void setPathRomsFolder(String pathRomsFolder) {
+        this.pathRomsFolder = pathRomsFolder;
     }
 
     public Long getDefaultEmulatorId() {
@@ -142,10 +164,12 @@ public class ConsoleDTO implements Serializable {
             ", abbreviation='" + getAbbreviation() + "'" +
             ", name='" + getName() + "'" +
             ", pathIcon='" + getPathIcon() + "'" +
+            ", pathControllerIcon='" + getPathControllerIcon() + "'" +
             ", manufacturer='" + getManufacturer() + "'" +
             ", generation=" + getGeneration() +
             ", bits=" + getBits() +
             ", resume='" + getResume() + "'" +
+            ", pathRomsFolder='" + getPathRomsFolder() + "'" +
             "}";
     }
 }

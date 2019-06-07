@@ -31,7 +31,11 @@
             </column>
 
             <column name="path_icon" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
+            </column>
+
+            <column name="path_controller_icon" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
 
             <column name="manufacturer" type="varchar(255)">
@@ -47,6 +51,10 @@
             </column>
 
             <column name="resume" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="path_roms_folder" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -67,6 +75,12 @@
         </createTable>
 
         <addPrimaryKey columnNames="consoles_id, emulators_id" tableName="console_emulators"/>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/consoles.csv"
+                  separator=";"
+                  tableName="console">
+        </loadData>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

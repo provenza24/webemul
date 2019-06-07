@@ -5,9 +5,9 @@
         .module('webApp')
         .controller('ConsoleDialogController', ConsoleDialogController);
 
-    ConsoleDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Console', 'Emulator', 'Rom'];
+    ConsoleDialogController.$inject = ['$q','$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Console', 'Rom', 'Emulator'];
 
-    function ConsoleDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Console, Emulator, Rom) {
+    function ConsoleDialogController ($q, $timeout, $scope, $stateParams, $uibModalInstance, entity, Console, Rom, Emulator) {
         var vm = this;
 
         vm.console = entity;
@@ -28,7 +28,7 @@
             }
             return Emulator.get({id : vm.console.defaultEmulatorId}).$promise;
         });
-        vm.roms = Rom.query();
+        // vm.roms = Rom.query();
         vm.emulators = Emulator.query();
 
         $timeout(function (){
@@ -49,7 +49,7 @@
         }
 
         function onSaveSuccess (result) {
-            $scope.$emit('webApp:consoleUpdate', result);
+            $scope.$emit('webEmulApp:consoleUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }
