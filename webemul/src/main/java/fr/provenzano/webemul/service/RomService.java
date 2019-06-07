@@ -1,8 +1,11 @@
 package fr.provenzano.webemul.service;
 
-import fr.provenzano.webemul.service.dto.RomDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specifications;
+
+import fr.provenzano.webemul.domain.Rom;
+import fr.provenzano.webemul.service.dto.RomDTO;
 
 /**
  * Service Interface for managing Rom.
@@ -24,6 +27,15 @@ public interface RomService {
      * @return the list of entities
      */
     Page<RomDTO> findAll(Pageable pageable);
+    
+    /**
+     * Get all the roms.
+     * 
+     * @param pageable the pagination information
+     * @param specifications the specifications information
+     * @return the list of entities
+     */
+    Page<RomDTO> findAll(Pageable pageable, Specifications<Rom> specifications);
 
     /**
      * Get the "id" rom.

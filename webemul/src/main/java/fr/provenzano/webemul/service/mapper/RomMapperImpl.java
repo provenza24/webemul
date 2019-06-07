@@ -1,17 +1,21 @@
 package fr.provenzano.webemul.service.mapper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Generated;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import fr.provenzano.webemul.domain.Console;
 import fr.provenzano.webemul.domain.Genre;
 import fr.provenzano.webemul.domain.Rom;
 import fr.provenzano.webemul.service.dto.GenreDTO;
 import fr.provenzano.webemul.service.dto.RomDTO;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.annotation.Generated;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
@@ -66,6 +70,13 @@ public class RomMapperImpl implements RomMapper {
         if ( id != null ) {
             romDTO.setConsoleId( id );
         }
+        
+        byte[] image = rom.getCover();
+        if ( image != null ) {
+        	romDTO.setCover( Arrays.copyOf( image, image.length ) );
+        }	
+        romDTO.setCoverContentType( rom.getCoverContentType() );
+        
         romDTO.setId( rom.getId() );
         romDTO.setName( rom.getName() );
         romDTO.setPathFile( rom.getPathFile() );
@@ -83,6 +94,12 @@ public class RomMapperImpl implements RomMapper {
         }
 
         Rom rom = new Rom();
+        
+        byte[] image = romDTO.getCover();
+        if ( image != null ) {
+        	rom.setCover( Arrays.copyOf( image, image.length ) );
+        }
+        rom.setCoverContentType( romDTO.getCoverContentType() );
 
         rom.setConsole( consoleMapper.fromId( romDTO.getConsoleId() ) );
         rom.setId( romDTO.getId() );

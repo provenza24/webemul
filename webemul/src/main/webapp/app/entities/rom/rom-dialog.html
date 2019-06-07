@@ -49,15 +49,38 @@
                     ng-model="vm.rom.pathCover"
                     />
         </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setCover($file, vm.rom)">
+            <label class="control-label" for="field_cover">Cover</label>
+            <div>
+                <div ng-if="vm.rom.cover" class="help-block clearfix">
+                    <a class="pull-left" ng-click="vm.openFile(vm.rom.coverContentType, vm.rom.cover)">open</a><br>
+                    <span class="pull-left">{{vm.rom.coverContentType}}, {{vm.byteSize(vm.rom.cover)}}</span>
+                    <button type="button" ng-click="vm.rom.cover=null;vm.rom.coverContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setCover($file, vm.rom)">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="cover" id="field_cover"
+                    ng-model="vm.rom.cover"
+                    />
+            <input type="hidden" class="form-control" name="coverContentType" id="field_coverContentType"
+                    ng-model="vm.rom.coverContentType" />
+        </div>
+
         <div class="form-group">
             <label for="field_console">Console</label>
-            <select class="form-control" id="field_console" name="console" ng-model="vm.rom.consoleId" ng-options="console.id as console.name for console in vm.consoles">
+            <select class="form-control" id="field_console" name="console" ng-model="vm.rom.consoleId" ng-options="console.id as console.id for console in vm.consoles"            >
                 <option value=""></option>
-            </select>                       
-        </div>      
+            </select>
+        </div>
         <div class="form-group">
             <label for="field_genres">Genres</label>
-            <select class="form-control" id="field_genres" multiple name="genres" ng-model="vm.rom.genres" ng-options="genre as genre.name for genre in vm.genres | orderBy:'name' track by genre.id"></select>
+			<select class="form-control" id="field_genres" multiple name="genres" ng-model="vm.rom.genres" ng-options="genre as genre.name for genre in vm.genres | orderBy:'name' track by genre.id"></select>
         </div>
     </div>
     <div class="modal-footer">

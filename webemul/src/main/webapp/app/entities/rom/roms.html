@@ -1,81 +1,182 @@
 <div>
-    <h2>Roms</h2>
-    <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="rom.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Rom
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <br/>
-        
-    <div class="table-responsive">
-        <table class="jh-table table table-striped table-hover">
-            <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                   <th jh-sort-by="consoleId"><span>Console</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <!-- >th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th-->
-                    <!-- th jh-sort-by="pathCover" style="max-width:100px"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th-->                    
-                    <th><span>Genres</span></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="rom in vm.roms track by rom.id">
-                    <td><a ui-sref="rom-detail({id:rom.id})">{{rom.id}}</a></td>
-                    <!-- th><img class="box" ng-src="{{rom.pathCover | trusted}}" alt="..."></th-->
+	<div class="container-fluid">
+		<div class="row">			
+			<div class="col-md-8 col-md-offset-2">
+				<div id="dock-container">
+					<div id="dock">
+						<ul>
+							<li ng-repeat="console in vm.consoles | orderBy:['manufacturer', 'bits', 'name']"><span>{{console.abbreviation}}</span>
+								<a ng-click="vm.test(console.id)"><img ng-src="{{console.pathIcon}}" width="50px" /></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-primary" ui-sref="rom.new">
+					<span class="glyphicon glyphicon-plus"></span> <span> Add rom </span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<jhi-alert></jhi-alert>
+
+	<br />
+	
+	<div class="widget stacked widget-table action-table">
+
+		<div class="widget-content">
+
+			<table class="table table-striped  table-hover">
+				<thead>
+					<tr jh-sort="vm.predicate" ascending="vm.reverse"
+					callback="vm.transition()">
+					<!-- th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th-->
+					<th jh-sort-by="consoleId"><span>CONSOLE</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th></th>
+					<th jh-sort-by="name"><span>NAME</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<!-- th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="pathCover"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cover"><span>Cover</span> <span class="glyphicon glyphicon-sort"></span></th-->
+					<th><span>CATEGORIES</span></th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="rom in vm.roms track by rom.id">
+					<!-- td><a ui-sref="rom-detail({id:rom.id})">{{rom.id}}</a></td-->
+					<td style="vertical-align: middle"><span
+						ng-repeat="console in vm.consoles"> <a
+							ng-show="rom.consoleId==console.id"
+							ui-sref="console-detail({id:rom.consoleId})"> <img
+								ng-show="console.pathIcon" style="width: 40px;"
+								ng-src="{{console.pathIcon}}" alt="...">
+						</a>
+					</span></td>
+					<td style="vertical-align: middle"><img ng-if="rom.cover"
+						ng-src="{{rom.img}}" style="margin: auto; height: 70px"
+						ng-click="vm.openFile(rom.coverContentType, rom.cover)"
+						uib-popover popover-trigger="mouseenter" popover-placement="right"
+						uib-popover-template="'cover.html'"></td>
+					<td style="vertical-align: middle">{{rom.name}}</td>
+					<!-- td>{{rom.pathFile}}</td>
+                    <td>{{rom.extension}}</td>
+                    <td>{{rom.pathCover}}</td>
                     <td>
-                    	<span ng-repeat="console in vm.consoles">
-                    		<a ng-show="rom.consoleId==console.id" ui-sref="console-detail({id:rom.consoleId})"><img ng-show="console.pathIcon" style="width:40px; margin-right:10px" ng-src="{{console.pathIcon}}" alt="..."></a>
-                    	</span>                        
-                    </td>
-                    <td>{{rom.name}}</td>
-                    <!-- td>{{rom.pathFile}}</td>
-                    <td>{{rom.extension}}</td-->
-                    <!-- td>{{rom.pathCover}}</td-->                    
-                    <td>
-                    	<span ng-repeat="genre in rom.genres">
-                        	{{genre.name}}{{$last ? '' : ', '}}
-                        </span>                        
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="rom-detail({id:rom.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="rom.edit({id:rom.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="rom.delete({id:rom.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="text-center">
-        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
-        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
-    </div>
-            
+                        <a ng-if="rom.cover" ng-click="vm.openFile(rom.coverContentType, rom.cover)">open</a>
+                        <span ng-if="rom.cover">{{rom.coverContentType}}, {{vm.byteSize(rom.cover)}}</span>                        
+                    </td-->
+					<td style="vertical-align: middle"><span
+						ng-repeat="genre in rom.genres | orderBy:'name'">
+							{{genre.name}}{{$last ? '' : ', '}} </span></td>
+					<td style="vertical-align: middle" class="text-right">
+						<div class="btn-group flex-btn-group-container">
+							<button type="submit" ui-sref="rom-detail({id:rom.id})"
+								class="btn btn-info btn-sm">
+								<span class="glyphicon glyphicon-eye-open"></span> <span
+									class="hidden-sm-down"></span>
+							</button>
+							<button type="submit" ui-sref="rom.edit({id:rom.id})"
+								class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span> <span
+									class="hidden-sm-down"></span>
+							</button>
+							<button type="submit" ui-sref="rom.delete({id:rom.id})"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove-circle"></span> <span
+									class="hidden-sm-down"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<!-- /widget-content -->
+
+	</div>
+	<!-- /widget -->
+	
+	
+
+	<!-- div class="table-responsive">
+		<table class="jh-table table table-striped table-hover">
+			<thead>
+				<tr jh-sort="vm.predicate" ascending="vm.reverse"
+					callback="vm.transition()">
+					<th jh-sort-by="consoleId"><span>CONSOLE</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th></th>
+					<th jh-sort-by="name"><span>NAME</span> <span
+						class="glyphicon glyphicon-sort"></span></th>
+					<th><span>CATEGORIES</span></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="rom in vm.roms track by rom.id">
+					<td style="vertical-align: middle"><span
+						ng-repeat="console in vm.consoles"> <a
+							ng-show="rom.consoleId==console.id"
+							ui-sref="console-detail({id:rom.consoleId})"> <img
+								ng-show="console.pathIcon" style="width: 40px;"
+								ng-src="{{console.pathIcon}}" alt="...">
+						</a>
+					</span></td>
+					<td style="vertical-align: middle"><img ng-if="rom.cover"
+						ng-src="{{rom.img}}" style="margin: auto; height: 70px"
+						ng-click="vm.openFile(rom.coverContentType, rom.cover)"
+						uib-popover popover-trigger="mouseenter" popover-placement="right"
+						uib-popover-template="'cover.html'"></td>
+					<td style="vertical-align: middle">{{rom.name}}</td>
+					<td style="vertical-align: middle"><span
+						ng-repeat="genre in rom.genres | orderBy:'name'">
+							{{genre.name}}{{$last ? '' : ', '}} </span></td>
+					<td style="vertical-align: middle" class="text-right">
+						<div class="btn-group flex-btn-group-container">
+							<button type="submit" ui-sref="rom-detail({id:rom.id})"
+								class="btn btn-info btn-sm">
+								<span class="glyphicon glyphicon-eye-open"></span> <span
+									class="hidden-sm-down"></span>
+							</button>
+							<button type="submit" ui-sref="rom.edit({id:rom.id})"
+								class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span> <span
+									class="hidden-sm-down"></span>
+							</button>
+							<button type="submit" ui-sref="rom.delete({id:rom.id})"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove-circle"></span> <span
+									class="hidden-sm-down"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div-->
+	<div class="text-center">
+		<jhi-item-count page="vm.page" total="vm.queryCount"
+			items-per-page="vm.itemsPerPage"></jhi-item-count>
+		<uib-pagination class="pagination-sm" total-items="vm.totalItems"
+			items-per-page="vm.itemsPerPage" ng-model="vm.page"
+			ng-change="vm.transition()"></uib-pagination>
+	</div>
 </div>
+
+<script type="text/ng-template" id="cover.html">
+  <div class="popover-content">
+    <div>
+      <img ng-src="{{rom.img}}"/>      
+    </div>
+  </div> 
+</script>
+
+
+	
+

@@ -38,6 +38,13 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="cover" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="cover_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="console_id" type="bigint">
                 <constraints nullable="true" />
             </column>

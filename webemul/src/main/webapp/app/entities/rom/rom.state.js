@@ -11,7 +11,7 @@
         $stateProvider
         .state('rom', {
             parent: 'entity',
-            url: '/rom?page&sort&search',
+            url: '/rom?page&sort&search&consoleId',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Roms'
@@ -41,7 +41,8 @@
                         sort: $stateParams.sort,
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
                         ascending: PaginationUtil.parseAscending($stateParams.sort),
-                        search: $stateParams.search
+                        search: $stateParams.search,
+                        consoleId: $stateParams.consoleId
                     };
                 }],
             }
@@ -119,6 +120,8 @@
                                 pathFile: null,
                                 extension: null,
                                 pathCover: null,
+                                cover: null,
+                                coverContentType: null,
                                 id: null
                             };
                         }

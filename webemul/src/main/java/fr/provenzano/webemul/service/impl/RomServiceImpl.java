@@ -1,11 +1,10 @@
 package fr.provenzano.webemul.service.impl;
 
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +60,21 @@ public class RomServiceImpl implements RomService {
         return romRepository.findAll(pageable)
             .map(romMapper::toDto);
     }
+    
+    /**
+     * Get all the roms.
+     *
+     * @param pageable the pagination information
+     * @param specifications Specifications associated to the search
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<RomDTO> findAll(Pageable pageable, Specifications<Rom> specifications) {
+        log.debug("Request to get all Roms");
+        return romRepository.findAll(specifications, pageable)
+            .map(romMapper::toDto);
+    }
 
     /**
      * Get one rom by id.
@@ -72,7 +86,7 @@ public class RomServiceImpl implements RomService {
     @Transactional(readOnly = true)
     public RomDTO findOne(Long id) {
         log.debug("Request to get Rom : {}", id);
-        Rom rom = romRepository.findOneWithEagerRelationships(id);       
+        Rom rom = romRepository.findOneWithEagerRelationships(id);
         return romMapper.toDto(rom);
     }
 

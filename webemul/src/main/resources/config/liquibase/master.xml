@@ -6,9 +6,9 @@
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181214132229_added_entity_Console.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181214132230_added_entity_Rom.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181214132231_added_entity_Emulator.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181218101742_added_entity_Genre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181214132230_added_entity_Rom.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     
     <include file="config/liquibase/changelog/20181214132229_added_entity_constraints_Console.xml" relativeToChangelogFile="false"/>

@@ -13,6 +13,7 @@ entity Rom {
     pathFile String required
     extension String
     pathCover String
+    cover Blob
 }
 
 entity Emulator {

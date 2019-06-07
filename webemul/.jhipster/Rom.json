@@ -38,6 +38,11 @@
         {
             "fieldName": "pathCover",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "cover",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
         }
     ],
     "changelogDate": "20181214132230",

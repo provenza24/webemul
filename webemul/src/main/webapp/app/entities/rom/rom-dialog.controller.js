@@ -5,13 +5,15 @@
         .module('webApp')
         .controller('RomDialogController', RomDialogController);
 
-    RomDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Rom', 'Console', 'Genre'];
+    RomDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Rom', 'Console', 'Genre'];
 
-    function RomDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Rom, Console, Genre) {
+    function RomDialogController ($timeout, $scope, $stateParams, $uibModalInstance, DataUtils, entity, Rom, Console, Genre) {
         var vm = this;
 
         vm.rom = entity;
         vm.clear = clear;
+        vm.byteSize = DataUtils.byteSize;
+        vm.openFile = DataUtils.openFile;
         vm.save = save;
         vm.consoles = Console.query();
         vm.genres = Genre.query();
@@ -43,6 +45,17 @@
             vm.isSaving = false;
         }
 
+
+        vm.setCover = function ($file, rom) {
+            if ($file) {
+                DataUtils.toBase64($file, function(base64Data) {
+                    $scope.$apply(function() {
+                        rom.cover = base64Data;
+                        rom.coverContentType = $file.type;
+                    });
+                });
+            }
+        };
 
     }
 })();

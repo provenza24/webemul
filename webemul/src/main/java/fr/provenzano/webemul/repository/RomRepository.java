@@ -12,7 +12,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface RomRepository extends JpaRepository<Rom, Long> {
+public interface RomRepository extends JpaRepository<Rom, Long>, JpaSpecificationExecutor<Rom> {
     @Query("select distinct rom from Rom rom left join fetch rom.genres")
     List<Rom> findAllWithEagerRelationships();
 

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Rom entity.
@@ -23,6 +24,10 @@ public class RomDTO implements Serializable {
     private String extension;
 
     private String pathCover;
+
+    @Lob
+    private byte[] cover;
+    private String coverContentType;
 
     private Long consoleId;
 
@@ -66,6 +71,22 @@ public class RomDTO implements Serializable {
 
     public void setPathCover(String pathCover) {
         this.pathCover = pathCover;
+    }
+
+    public byte[] getCover() {
+        return cover;
+    }
+
+    public void setCover(byte[] cover) {
+        this.cover = cover;
+    }
+
+    public String getCoverContentType() {
+        return coverContentType;
+    }
+
+    public void setCoverContentType(String coverContentType) {
+        this.coverContentType = coverContentType;
     }
 
     public Long getConsoleId() {
@@ -113,6 +134,7 @@ public class RomDTO implements Serializable {
             ", pathFile='" + getPathFile() + "'" +
             ", extension='" + getExtension() + "'" +
             ", pathCover='" + getPathCover() + "'" +
+            ", cover='" + getCover() + "'" +
             "}";
     }
 }

@@ -36,6 +36,13 @@ public class Rom implements Serializable {
     @Column(name = "path_cover")
     private String pathCover;
 
+    @Lob
+    @Column(name = "cover")
+    private byte[] cover;
+
+    @Column(name = "cover_content_type")
+    private String coverContentType;
+
     @ManyToOne
     private Console console;
 
@@ -106,6 +113,32 @@ public class Rom implements Serializable {
         this.pathCover = pathCover;
     }
 
+    public byte[] getCover() {
+        return cover;
+    }
+
+    public Rom cover(byte[] cover) {
+        this.cover = cover;
+        return this;
+    }
+
+    public void setCover(byte[] cover) {
+        this.cover = cover;
+    }
+
+    public String getCoverContentType() {
+        return coverContentType;
+    }
+
+    public Rom coverContentType(String coverContentType) {
+        this.coverContentType = coverContentType;
+        return this;
+    }
+
+    public void setCoverContentType(String coverContentType) {
+        this.coverContentType = coverContentType;
+    }
+
     public Console getConsole() {
         return console;
     }
@@ -171,6 +204,8 @@ public class Rom implements Serializable {
             ", pathFile='" + getPathFile() + "'" +
             ", extension='" + getExtension() + "'" +
             ", pathCover='" + getPathCover() + "'" +
+            ", cover='" + getCover() + "'" +
+            ", coverContentType='" + getCoverContentType() + "'" +
             "}";
     }
 }
