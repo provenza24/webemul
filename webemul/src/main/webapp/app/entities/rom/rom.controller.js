@@ -21,6 +21,7 @@
 		vm.consoles = Console.query();
 		vm.consoleId = angular.isDefined(pagingParams.consoleId) ? pagingParams.consoleId : '';
 		vm.test = test;
+		vm.loading = true;
 
 		loadAll();
 
@@ -30,6 +31,7 @@
 		}
 		
 		function loadAll() {
+			vm.loading = true;
 			Rom.query({
 				page : pagingParams.page - 1,
 				size : vm.itemsPerPage,
@@ -61,8 +63,10 @@
 				        };
 				}
 				vm.page = pagingParams.page;
+				vm.loading = false;
 			}
 			function onError(error) {
+				vm.loading = false;
 				AlertService.error(error.data.message);
 			}
 		}

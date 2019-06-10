@@ -87,9 +87,10 @@ h1.page-header {
 }
 
 #dock-container {
+	margin-top: 0px;
 	/*position: fixed;
 	bottom: 0;
-	
+	top:50;
 	right: 20%;
 	left: 20%;
 	width: 60%;*/
@@ -108,19 +109,18 @@ h1.page-header {
 	z-index: 1000;
 	width: 50px;
 	height: 50px;
-	-webkit-box-reflect: below 2px
-		-webkit-gradient(linear, left top, left bottom, from(transparent),
-		color-stop(0.7, transparent), to(rgba(255, 255, 255, .5)));
 	-webkit-transition: all 0.3s;
 	-webkit-transform-origin: 50% 100%;
 }
 
 #dock-container li:hover img {
+	z-index: 1000;
 	-webkit-transform: scale(2);
 	margin: 0 2em;
 }
 
 #dock-container li:hover+li img, #dock-container li.prev img {
+	z-index: 1000;
 	-webkit-transform: scale(1.5);
 	margin: 0 1.5em;
 }
@@ -140,6 +140,7 @@ h1.page-header {
 #dock-container li:hover span {
 	display: block;
 	color: #fff;
+	z-index: 1000;
 }
 
 .table-bordered {
@@ -250,4 +251,8 @@ thead {
 	font-size: 16px;
 	color: #555;
 	vertical-align: middle;
+}
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
 }
