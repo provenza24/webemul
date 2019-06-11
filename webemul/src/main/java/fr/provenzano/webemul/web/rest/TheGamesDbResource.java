@@ -41,11 +41,12 @@ public class TheGamesDbResource {
 	public List<Game_> getGames(@RequestParam("name") String name, @RequestParam("consoleId") String consoleId) {		
 		log.debug("REST request to get list of games from thegamesdb");
 
+		ConsoleDTO console = null;
 		if (StringUtils.isNotBlank(consoleId)) {
-			ConsoleDTO console = consoleService.findOne(Long.parseLong(consoleId));
+			console = consoleService.findOne(Long.parseLong(consoleId));			
 		}
 		
-		return theGamesDbService.getGames(name, null);
+		return theGamesDbService.getGames(name, console!=null ? console.getTgdbId() : null);
 	}
 	
 	@GetMapping("/thegamesdb/covers/{id}")

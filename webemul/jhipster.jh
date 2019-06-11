@@ -8,6 +8,7 @@ entity Console {
     bits Integer    
     resume String 
     pathRomsFolder String
+    tgdbId Integer required
 }
 
 entity Rom {

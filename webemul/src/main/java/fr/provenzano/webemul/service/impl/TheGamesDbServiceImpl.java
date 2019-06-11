@@ -65,6 +65,9 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 			String finalUrl = API_URL + "Games/ByGameName?";
 			finalUrl += "apikey=" + API_KEY;
 			finalUrl += "&name=" + name.replaceAll(" ", "%20");
+			if (platform!=null) {
+				finalUrl += "&filter[platform][]="+Integer.toString(platform);
+			}			
 
 			HttpResponse<JsonNode> response = Unirest.get(finalUrl).header("Accept", "application/json").asJson();
 			JsonNode node = response.getBody();			

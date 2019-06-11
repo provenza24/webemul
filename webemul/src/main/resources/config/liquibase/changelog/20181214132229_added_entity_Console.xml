@@ -58,6 +58,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="tgdb_id" type="integer">
+                <constraints nullable="false" />
+            </column>
+
             <column name="default_emulator_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -76,11 +80,12 @@
 
         <addPrimaryKey columnNames="consoles_id, emulators_id" tableName="console_emulators"/>
         
-        <loadData encoding="UTF-8"
+         <loadData encoding="UTF-8"
                   file="config/liquibase/consoles.csv"
                   separator=";"
                   tableName="console">
         </loadData>
+        
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

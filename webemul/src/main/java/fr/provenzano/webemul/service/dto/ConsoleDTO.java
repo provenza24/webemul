@@ -36,6 +36,9 @@ public class ConsoleDTO implements Serializable {
 
     private String pathRomsFolder;
 
+    @NotNull
+    private Integer tgdbId;
+
     private Long defaultEmulatorId;
 
     private Set<EmulatorDTO> emulators = new HashSet<>();
@@ -120,6 +123,14 @@ public class ConsoleDTO implements Serializable {
         this.pathRomsFolder = pathRomsFolder;
     }
 
+    public Integer getTgdbId() {
+        return tgdbId;
+    }
+
+    public void setTgdbId(Integer tgdbId) {
+        this.tgdbId = tgdbId;
+    }
+
     public Long getDefaultEmulatorId() {
         return defaultEmulatorId;
     }
@@ -170,6 +181,7 @@ public class ConsoleDTO implements Serializable {
             ", bits=" + getBits() +
             ", resume='" + getResume() + "'" +
             ", pathRomsFolder='" + getPathRomsFolder() + "'" +
+            ", tgdbId=" + getTgdbId() +
             "}";
     }
 }

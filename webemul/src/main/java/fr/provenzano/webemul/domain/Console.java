@@ -54,6 +54,10 @@ public class Console implements Serializable {
     @Column(name = "path_roms_folder")
     private String pathRomsFolder;
 
+    @NotNull
+    @Column(name = "tgdb_id", nullable = false)
+    private Integer tgdbId;
+
     @OneToMany(mappedBy = "console")
     @JsonIgnore
     private Set<Rom> roms = new HashSet<>();
@@ -193,6 +197,19 @@ public class Console implements Serializable {
         this.pathRomsFolder = pathRomsFolder;
     }
 
+    public Integer getTgdbId() {
+        return tgdbId;
+    }
+
+    public Console tgdbId(Integer tgdbId) {
+        this.tgdbId = tgdbId;
+        return this;
+    }
+
+    public void setTgdbId(Integer tgdbId) {
+        this.tgdbId = tgdbId;
+    }
+
     public Set<Rom> getRoms() {
         return roms;
     }
@@ -288,6 +305,7 @@ public class Console implements Serializable {
             ", bits=" + getBits() +
             ", resume='" + getResume() + "'" +
             ", pathRomsFolder='" + getPathRomsFolder() + "'" +
+            ", tgdbId=" + getTgdbId() +
             "}";
     }
 }

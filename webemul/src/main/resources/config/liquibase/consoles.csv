@@ -1,5 +1,5 @@
-id;abbreviation;name;path_icon;path_controller_icon;manufacturer;generation;bits;resume;path_roms_folder;default_emulator_id
-1;NES;NINTENDO ENTERTAINMENT SYSTEM;content/images/consoles/nes-512.png;content/images/controllers/nes.png;NINTENDO;3;8;;;null
-2;GAMEBOY;GAMEBOY;content/images/consoles/gameboy-128.png;content/images/consoles/gameboy-128.png;NINTENDO;3;8;;;null
-3;MASTER SYSTEM;MASTER SYSTEM;content/images/consoles/master_system-512.png;content/images/consoles/master_system-512.png;SEGA;3;8;;;null
-4;MEGADRIVE;MEGADRIVE;content/images/consoles/megadrive.png;content/images/controllers/megadrive.png;SEGA;3;8;;;null
+id;abbreviation;name;path_icon;path_controller_icon;manufacturer;generation;bits;resume;path_roms_folder;default_emulator_id;tgdb_id
+1;NES;NINTENDO ENTERTAINMENT SYSTEM;content/images/consoles/nes-512.png;content/images/controllers/nes.png;NINTENDO;3;8;;;null;7
+2;GAMEBOY;GAMEBOY;content/images/consoles/gameboy-128.png;content/images/consoles/gameboy-128.png;NINTENDO;3;8;;;null;4
+3;MASTER SYSTEM;MASTER SYSTEM;content/images/consoles/master_system-512.png;content/images/consoles/master_system-512.png;SEGA;3;8;;;null;35
+4;MEGADRIVE;MEGADRIVE;content/images/consoles/megadrive.png;content/images/controllers/megadrive.png;SEGA;3;8;;;null;36

@@ -70,6 +70,13 @@
         {
             "fieldName": "pathRomsFolder",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "tgdbId",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20181214132229",
