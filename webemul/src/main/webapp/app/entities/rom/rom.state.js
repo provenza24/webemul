@@ -47,6 +47,29 @@
                 }],
             }
         })
+        
+        
+        .state('rom-games', {
+            parent: 'rom',
+            url: '/{id}/thegamesdb/games?name&consoleId',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'TheGamesDb games'
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                	templateUrl: 'app/entities/rom/rom-games.html',
+                    controller: 'RomGamesController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg'                    
+                }).result.then(function() {
+                    $state.go('^', {}, { reload: true });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })                       
         .state('rom-detail', {
             parent: 'rom',
             url: '/rom/{id}',

@@ -67,7 +67,7 @@
 			}
 			function onError(error) {
 				vm.loading = false;
-				AlertService.error(error.data.message);
+				AlertService.error(error.data.message, error);
 			}
 		}
 

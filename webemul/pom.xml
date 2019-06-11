@@ -114,6 +114,21 @@
 	</dependencyManagement>
 
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/xstream/xstream -->
+		<dependency>
+			<groupId>xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
@@ -400,12 +415,12 @@
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${mapstruct.version}</version>
 						</path>
-						<!-- For JPA static metamodel generation-->
-							<path>
-								<groupId>org.hibernate</groupId>
-								<artifactId>hibernate-jpamodelgen</artifactId>
-								<version>${hibernate.version}</version>
-							</path>
+						<!-- For JPA static metamodel generation -->
+						<path>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>${hibernate.version}</version>
+						</path>
 
 					</annotationProcessorPaths>
 				</configuration>

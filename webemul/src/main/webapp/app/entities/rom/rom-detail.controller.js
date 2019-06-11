@@ -8,8 +8,9 @@
     RomDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'DataUtils', 'entity', 'Rom', 'Console', 'Genre'];
 
     function RomDetailController($scope, $rootScope, $stateParams, previousState, DataUtils, entity, Rom, Console, Genre) {
+    	
         var vm = this;
-
+      
         vm.rom = entity;
         vm.previousState = previousState.name;
         vm.byteSize = DataUtils.byteSize;
