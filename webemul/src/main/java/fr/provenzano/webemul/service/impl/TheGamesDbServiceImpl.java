@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,31 +50,31 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 	private static final String API_KEY = "79ed4d13b297d968cb10343a441d5dbfb6971aae1acbdcc403b14a4d0abef94a";
 
 	private final RomService romService;
-	
+
 	public TheGamesDbServiceImpl(RomService romService) {
 		this.romService = romService;
 	}
-	
+
 	public List<Game_> getGames(String name, Integer platform) {
-		
+
 		List<Game_> result = new ArrayList<>();
-	
-		addProxy();
+
+		// addProxy();
 
 		try {
-		
+
 			String finalUrl = API_URL + "Games/ByGameName?";
 			finalUrl += "apikey=" + API_KEY;
 			finalUrl += "&name=" + name.replaceAll(" ", "%20");
-			if (platform!=null) {
-				finalUrl += "&filter[platform][]="+Integer.toString(platform);
-			}			
+			if (platform != null) {
+				finalUrl += "&filter[platform][]=" + Integer.toString(platform);
+			}
 
 			HttpResponse<JsonNode> response = Unirest.get(finalUrl).header("Accept", "application/json").asJson();
-			JsonNode node = response.getBody();			
-			//toFile(node, "gamelist.xml");
-			//JsonNode node = fromFile("gamelist.xml");
-			
+			JsonNode node = response.getBody();
+			// toFile(node, "gamelist.xml");
+			// JsonNode node = fromFile("gamelist.xml");
+
 			JSONArray array = node.getArray();
 			for (int i = 0; i < array.length(); i++) {
 				try {
@@ -104,7 +105,7 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 		clientBuilder.setDefaultCredentialsProvider(credsProvider);
 		clientBuilder.setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
 
-		Lookup<AuthSchemeProvider> authProviders = RegistryBuilder.<AuthSchemeProvider> create()
+		Lookup<AuthSchemeProvider> authProviders = RegistryBuilder.<AuthSchemeProvider>create()
 				.register(AuthSchemes.BASIC, new BasicSchemeFactory()).build();
 		clientBuilder.setDefaultAuthSchemeRegistry(authProviders);
 
@@ -113,8 +114,6 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 
 	@Override
 	public void downloadCover(Long id, Long romId) {
-
-		addProxy();
 
 		try {
 		
@@ -142,23 +141,40 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 						String type = cover.getType();
 						String side = (String)cover.getSide();
 						if (type.equals("boxart") && side.equals("front")) {
-							URL url = new URL("https://cdn.thegamesdb.net/images/small/"+cover.getFilename());
-							InputStream in = new BufferedInputStream(url.openStream());
-							ByteArrayOutputStream out = new ByteArrayOutputStream();
-							byte[] buf = new byte[1024];
-							int n = 0;
-							while (-1!=(n=in.read(buf)))
-							{
-							   out.write(buf, 0, n);
-							}
-							out.close();
-							in.close();
-							byte[] imageAsByte = out.toByteArray();
-							RomDTO romDTO = romService.findOne(romId);
-							romDTO.setCover(imageAsByte);
-							romService.save(romDTO);
-							coverDownloaded = true;
-							break;
+							try {
+								
+								URL url;
+								URLConnection uc;
+								StringBuilder parsedContentFromUrl = new StringBuilder();
+								String urlString="https://cdn.thegamesdb.net/images/small/"+cover.getFilename();
+								System.out.println("Getting content for URl : " + urlString);
+								url = new URL(urlString);
+								uc = url.openConnection();
+								uc.addRequestProperty("User-Agent", 
+										"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+								uc.connect();
+								uc.getInputStream();
+								BufferedInputStream in = new BufferedInputStream(uc.getInputStream());
+								
+								ByteArrayOutputStream out = new ByteArrayOutputStream();
+								byte[] buf = new byte[1024];
+								int n = 0;
+								while (-1!=(n=in.read(buf)))
+								{
+								   out.write(buf, 0, n);
+								}
+								out.close();
+								in.close();
+								byte[] imageAsByte = out.toByteArray();
+								RomDTO romDTO = romService.findOne(romId);
+								romDTO.setCover(imageAsByte);
+								romService.save(romDTO);
+								break;
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								
+							
 						}
 						j++;
 					}															
@@ -170,9 +186,9 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private void toFile(JsonNode node, String filename) {
-				
+
 		try {
 			XStream xstream = new XStream();
 			xstream.toXML(node, new FileOutputStream(new File(filename)));
@@ -181,11 +197,11 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private JsonNode fromFile(String filename) {
 		try {
 			XStream xstream = new XStream();
-			return (JsonNode)xstream.fromXML(new FileInputStream(new File(filename)));			
+			return (JsonNode) xstream.fromXML(new FileInputStream(new File(filename)));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

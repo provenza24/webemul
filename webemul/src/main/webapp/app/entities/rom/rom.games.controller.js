@@ -29,7 +29,7 @@
 		function download(gameId) {
 			
 			TheGamesDbCovers.get({id: gameId, romId: vm.rom.id}, function(result) {
-				clear();
+				$uibModalInstance.close(result);
 			}, function(error) {
 				AlertService.error("Error while downloading cover from thegamesdb.net", error);
 			})
