@@ -16,6 +16,7 @@ import com.codahale.metrics.annotation.Timed;
 import fr.provenzano.webemul.service.ConsoleService;
 import fr.provenzano.webemul.service.TheGamesDbService;
 import fr.provenzano.webemul.service.dto.ConsoleDTO;
+import fr.provenzano.webemul.service.errors.BadParameterException;
 import net.thegamesdb.Game_;
 
 /**
@@ -38,7 +39,7 @@ public class TheGamesDbResource {
 	
 	@GetMapping("/thegamesdb/games")
 	@Timed
-	public List<Game_> getGames(@RequestParam("name") String name, @RequestParam("consoleId") String consoleId) {		
+	public List<Game_> getGames(@RequestParam("name") String name, @RequestParam("consoleId") String consoleId) throws BadParameterException {		
 		log.debug("REST request to get list of games from thegamesdb");
 
 		ConsoleDTO console = null;
@@ -51,7 +52,7 @@ public class TheGamesDbResource {
 	
 	@GetMapping("/thegamesdb/covers/{id}")
 	@Timed
-	public void getCover(@PathVariable Long id, @RequestParam("romId") String romId) {		
+	public void getCover(@PathVariable Long id, @RequestParam("romId") String romId) throws BadParameterException {		
 		log.debug("REST request to download cover from thegamesdb");		
 		theGamesDbService.downloadCover(id, Long.parseLong(romId));
 	}

@@ -5,6 +5,8 @@
         .module('webApp')
         .provider('AlertService', AlertService);
 
+    AlertService.$inject = [];
+    
     function AlertService () {
         this.toast = false;
         /*jshint validthis: true */
@@ -34,9 +36,23 @@
                 error: error,
                 //error2: error2,
                 info: info,
-                warning : warning
+                warning : warning,
+                showToasts: showToasts
             };
 
+            function showToasts(ngToast) {            	
+                for (var i = 0; i < alerts.length; i++) {        	                	
+                	if ((!angular.isDefined(alerts[i].displayed) || alerts[i].displayed==false) && alerts[i].type!='danger') {
+                		ngToast.create({
+            				className: alerts[i].type,
+            				content: $sce.getTrustedHtml(alerts[i].msg),
+            				timeout: 1500
+            			});
+                		alerts[i].displayed = true;
+                	}   
+                }
+            }
+            
             function isToast() {
                 return toast;
             }
@@ -56,7 +72,8 @@
                     params: params,
                     timeout: timeout,
                     toast: toast,
-                    position: position
+                    position: position,
+                    displayed: false
                 });
             }
 
@@ -81,7 +98,8 @@
                         params: params,
                         timeout: timeout,
                         toast: toast,
-                        position: position
+                        position: position,
+                        displayed: false
                     });
             	}                
             }
@@ -104,7 +122,8 @@
                     params: params,
                     timeout: timeout,
                     toast: toast,
-                    position: position
+                    position: position,
+                    displayed: false
                 });
             }
 
@@ -115,7 +134,8 @@
                     params: params,
                     timeout: timeout,
                     toast: toast,
-                    position: position
+                    position: position,
+                    displayed: false
                 });
             }
 

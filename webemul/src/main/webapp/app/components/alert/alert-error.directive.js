@@ -36,7 +36,7 @@
             );
         }
 
-        var cleanHttpErrorListener = $rootScope.$on('webApp.httpError', function (event, httpResponse) {
+        var cleanHttpErrorListener = $rootScope.$on('webDpsApp.httpError', function (event, httpResponse) {
             var i;
             event.stopPropagation();
             switch (httpResponse.status) {

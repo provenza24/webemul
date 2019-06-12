@@ -1,5 +1,6 @@
 <!-- nav class="navbar navbar-dark bg-primary" role="navigation"-->
-<nav class="navbar navbar-default navbar-static-top" role="navigation" style="z-index:0">
+<nav class="navbar navbar-default navbar-static-top" role="navigation"
+	style="z-index: 0">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle"
@@ -11,45 +12,40 @@
 		</div>
 		<div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed"
 			ng-switch="vm.isAuthenticated()">
+
 			<ul class="nav navbar-nav navbar-left">
 
 				<li ui-sref-active="active"><a ui-sref="home"
 					ng-click="vm.collapseNavbar()"> <!-- span class="glyphicon glyphicon-list-alt"></span-->
 						<span class="hidden-sm">Home</span>
-				</a></li>	
-				
+				</a></li>
+
 				<li ui-sref-active="active"><a ui-sref="rom"
 					ng-click="vm.collapseNavbar()"> <!-- span class="glyphicon glyphicon-list-alt"></span-->
 						<span class="hidden-sm">Roms</span>
-				</a></li>				
-				
-				<li ui-sref-active="active" uib-dropdown class="dropdown pointer">
-                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="administration">
-                        <span>
-                        	<span class="glyphicon glyphicon-cog"></span> 
-                            <span class="hidden-sm">
-                                Administration
-                            </span>
-                            <b class="caret"></b>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li>
-							<a ui-sref="console" ng-click="vm.collapseNavbar()">
-                            	Administrate video game consoles
-                            </a>
-                        </li>    
-                        <li>
-                            <a ui-sref="emulator" ng-click="vm.collapseNavbar()">
-                           		Administrate emulators
-                            </a>
-                        </li>                        
-                        
-                    </ul>
-                  
-                </li>
+				</a></li>
+
+				<li ui-sref-active="active"><a ui-sref="console"
+					ng-click="vm.collapseNavbar()"> <!-- span class="glyphicon glyphicon-list-alt"></span-->
+						<span class="hidden-sm">Consoles</span>
+				</a></li>
+
+				<li ui-sref-active="active"><a ui-sref="emulator"
+					ng-click="vm.collapseNavbar()"> <!-- span class="glyphicon glyphicon-list-alt"></span-->
+						<span class="hidden-sm">Emulators</span>
+				</a></li>
 
 			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+
+				<li ui-sref-active="active"><a ui-sref="parameter"
+					ng-click="vm.collapseNavbar()"> <!-- span class="glyphicon glyphicon-list-alt"></span-->
+						<span class="hidden-sm">Parameters</span>
+				</a></li>
+
+			</ul>
+
 		</div>
 </nav>
 

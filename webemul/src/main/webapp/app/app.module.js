@@ -12,7 +12,9 @@
             'ui.bootstrap',
             'ui.bootstrap.datetimepicker',
             'ui.router',
-            'infinite-scroll'            
+            'infinite-scroll',
+            'ngToast',
+            'ngTagsInput'
             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
         ])

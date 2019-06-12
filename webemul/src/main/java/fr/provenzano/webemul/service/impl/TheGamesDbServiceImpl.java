@@ -1,29 +1,8 @@
 package fr.provenzano.webemul.service.impl;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthSchemeProvider;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.config.AuthSchemes;
-import org.apache.http.config.Lookup;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.impl.auth.BasicSchemeFactory;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -33,11 +12,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.thoughtworks.xstream.XStream;
 
 import fr.provenzano.webemul.service.RomService;
+import fr.provenzano.webemul.service.TechParameterService;
 import fr.provenzano.webemul.service.TheGamesDbService;
+import fr.provenzano.webemul.service.dto.ApiInformationDTO;
 import fr.provenzano.webemul.service.dto.RomDTO;
+import fr.provenzano.webemul.service.errors.BadParameterException;
 import net.thegamesdb.Cover;
 import net.thegamesdb.Game;
 import net.thegamesdb.Game_;
@@ -45,35 +26,51 @@ import net.thegamesdb.Game_;
 @Service
 public class TheGamesDbServiceImpl implements TheGamesDbService {
 
-	private static final String API_URL = "https://api.thegamesdb.net/";
+	private final ProxyManager urlConnectionProxy;
 
-	private static final String API_KEY = "79ed4d13b297d968cb10343a441d5dbfb6971aae1acbdcc403b14a4d0abef94a";
-
+	private final TechParameterService parameterService;
+	
 	private final RomService romService;
 
-	public TheGamesDbServiceImpl(RomService romService) {
+	private ApiInformationDTO apiInformationDTO;
+
+	public TheGamesDbServiceImpl(RomService romService, ProxyManager urlConnectionProxy, TechParameterService parameterService) {
+		
 		this.romService = romService;
+		this.urlConnectionProxy = urlConnectionProxy;
+		this.parameterService = parameterService;		
 	}
 
-	public List<Game_> getGames(String name, Integer platform) {
+	private ApiInformationDTO getApiParameters() {
 
+		ApiInformationDTO apiInformationDTO = new ApiInformationDTO();
+
+		apiInformationDTO.setApiUrl(parameterService.findByName("api.url").getValue());
+		apiInformationDTO.setApiKey(parameterService.findByName("api.key").getValue());
+		apiInformationDTO.setGamesUrl(parameterService.findByName("api.games.url").getValue());
+		apiInformationDTO.setImagesUrl(parameterService.findByName("api.images.url").getValue());
+
+		return apiInformationDTO;
+	}
+
+	public List<Game_> getGames(String name, Integer platform) throws BadParameterException {
+
+		this.urlConnectionProxy.initConnection();
+		this.apiInformationDTO = getApiParameters();		
+		
 		List<Game_> result = new ArrayList<>();
-
-		// addProxy();
 
 		try {
 
-			String finalUrl = API_URL + "Games/ByGameName?";
-			finalUrl += "apikey=" + API_KEY;
-			finalUrl += "&name=" + name.replaceAll(" ", "%20");
+			String finalUrl = apiInformationDTO.getApiUrl() + apiInformationDTO.getGamesUrl();
+			finalUrl= finalUrl.replace("%api.key%", apiInformationDTO.getApiKey());
+			finalUrl = finalUrl.replace("%game.name%", name.replaceAll(" ", "%20"));
 			if (platform != null) {
-				finalUrl += "&filter[platform][]=" + Integer.toString(platform);
+				finalUrl = finalUrl.replace("%platform%", Integer.toString(platform));				
 			}
 
 			HttpResponse<JsonNode> response = Unirest.get(finalUrl).header("Accept", "application/json").asJson();
 			JsonNode node = response.getBody();
-			// toFile(node, "gamelist.xml");
-			// JsonNode node = fromFile("gamelist.xml");
 
 			JSONArray array = node.getArray();
 			for (int i = 0; i < array.length(); i++) {
@@ -81,50 +78,35 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 					JSONObject jsonObject = (JSONObject) array.get(i);
 					ObjectMapper mapper = new ObjectMapper();
 					Game game = mapper.readValue(jsonObject.toString(), Game.class);
-					for (Game_ game_ : game.getData().getGames()) {
-						System.out.println(game_.toString());
+					for (Game_ game_ : game.getData().getGames()) {						
 						result.add(game_);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new BadParameterException(e.getMessage());
 				}
 			}
 
-		} catch (UnirestException e1) {
-			e1.printStackTrace();
+		} catch (UnirestException e) {
+			throw new BadParameterException(e.getMessage());
 		}
 		return result;
 	}
 
-	private void addProxy() {
-		HttpClientBuilder clientBuilder = HttpClientBuilder.create();
-		CredentialsProvider credsProvider = new BasicCredentialsProvider();
-		credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("PROVENZANO-00494", "ZuZ6*5!"));
-		clientBuilder.useSystemProperties();
-		clientBuilder.setProxy(new HttpHost("proxy-web.cnamts.fr", 3128));
-		clientBuilder.setDefaultCredentialsProvider(credsProvider);
-		clientBuilder.setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
-
-		Lookup<AuthSchemeProvider> authProviders = RegistryBuilder.<AuthSchemeProvider>create()
-				.register(AuthSchemes.BASIC, new BasicSchemeFactory()).build();
-		clientBuilder.setDefaultAuthSchemeRegistry(authProviders);
-
-		Unirest.setHttpClient(clientBuilder.build());
-	}
-
 	@Override
-	public void downloadCover(Long id, Long romId) {
+	public void downloadCover(Long id, Long romId) throws BadParameterException {
 
-		try {
+		this.urlConnectionProxy.initConnection();
+		this.apiInformationDTO = getApiParameters();	
 		
-			String finalUrl = API_URL + "Games/Images?";
-			finalUrl += "apikey=" + API_KEY;
-			finalUrl += "&games_id=" + Long.toString(id);
+		try {
 
+			String finalUrl = apiInformationDTO.getApiUrl() + apiInformationDTO.getImagesUrl();
+			finalUrl = finalUrl.replace("%api.key%", apiInformationDTO.getApiKey());
+			finalUrl = finalUrl.replace("%game_id%", Long.toString(id));
+			
 			HttpResponse<JsonNode> response = Unirest.get(finalUrl).header("Accept", "application/json").asJson();
 			JsonNode node = response.getBody();
-			//toFile(node, "covers.xml");
-			
+
 			boolean coverDownloaded = false;
 			JSONArray array = node.getArray();
 			for (int i = 0; i < array.length() && !coverDownloaded; i++) {
@@ -137,76 +119,30 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 						JSONObject jsonImage = (JSONObject) jsonImagesArray.get(j);
 						ObjectMapper mapper = new ObjectMapper();
 						Cover cover = mapper.readValue(jsonImage.toString(), Cover.class);
-						System.out.println(cover.toString());
 						String type = cover.getType();
-						String side = (String)cover.getSide();
+						String side = (String) cover.getSide();
 						if (type.equals("boxart") && side.equals("front")) {
 							try {
-								
-								URL url;
-								URLConnection uc;
-								StringBuilder parsedContentFromUrl = new StringBuilder();
-								String urlString="https://cdn.thegamesdb.net/images/small/"+cover.getFilename();
-								System.out.println("Getting content for URl : " + urlString);
-								url = new URL(urlString);
-								uc = url.openConnection();
-								uc.addRequestProperty("User-Agent", 
-										"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
-								uc.connect();
-								uc.getInputStream();
-								BufferedInputStream in = new BufferedInputStream(uc.getInputStream());
-								
-								ByteArrayOutputStream out = new ByteArrayOutputStream();
-								byte[] buf = new byte[1024];
-								int n = 0;
-								while (-1!=(n=in.read(buf)))
-								{
-								   out.write(buf, 0, n);
-								}
-								out.close();
-								in.close();
-								byte[] imageAsByte = out.toByteArray();
+								String urlString = "https://cdn.thegamesdb.net/images/small/" + cover.getFilename();
+								byte[] imageAsByte = urlConnectionProxy.getBytes(urlString);
 								RomDTO romDTO = romService.findOne(romId);
 								romDTO.setCover(imageAsByte);
 								romService.save(romDTO);
+								coverDownloaded = true;
 								break;
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-								
-							
+							} catch (Exception e) {
+								throw new BadParameterException(e.getMessage());
+							}
+
 						}
-						j++;
-					}															
+					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new BadParameterException(e.getMessage());
 				}
 			}
-		} catch (UnirestException e1) {
-			e1.printStackTrace();
+		} catch (UnirestException e) {
+			throw new BadParameterException(e.getMessage());
 		}
-	}
-
-	private void toFile(JsonNode node, String filename) {
-
-		try {
-			XStream xstream = new XStream();
-			xstream.toXML(node, new FileOutputStream(new File(filename)));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private JsonNode fromFile(String filename) {
-		try {
-			XStream xstream = new XStream();
-			return (JsonNode) xstream.fromXML(new FileInputStream(new File(filename)));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 }

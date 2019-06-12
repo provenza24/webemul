@@ -30,6 +30,17 @@ entity Genre {
     igdbID Integer required
 }
 
+entity Parameter {
+	name String required
+    label String required
+    value String required
+    type ParameterType required
+}
+
+enum ParameterType {
+	SIMPLE, TAGS, SWITCH, NUMERIC
+}
+
 relationship OneToMany {
   Console{roms} to Rom
 }
