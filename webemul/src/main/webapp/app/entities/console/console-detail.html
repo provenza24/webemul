@@ -52,6 +52,10 @@
                 <a ui-sref="emulator-detail({id: emulators.id})">{{emulators.name}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
+        <dt><span>TheGamesdb console ID</span></dt>
+        <dd>
+            <span>{{vm.console.tgdbId}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

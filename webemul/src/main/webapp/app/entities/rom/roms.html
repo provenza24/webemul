@@ -68,11 +68,13 @@
 								ng-src="{{console.pathControllerIcon}}">
 						<!--/a-->
 					</span></td>
-					<td style="vertical-align: middle"><img ng-if="rom.cover"
-						ng-src="{{rom.img}}" style="margin: auto; height: 70px"
-						ng-click="vm.openFile(rom.coverContentType, rom.cover)"
-						uib-popover popover-trigger="mouseenter" popover-placement="right"
-						uib-popover-template="'cover.html'"></td>
+					<td style="vertical-align: middle">
+						<img ng-if="rom.cover" ng-src="{{rom.img}}" style="margin: auto; height: 70px"							
+							uib-popover popover-trigger="mouseenter" popover-placement="right" uib-popover-template="'cover.html'">
+						<a ui-sref="rom-games({id:rom.id})">
+							<img ng-if="!rom.cover" src="content/images/No-image-icon.jpg" style="margin: auto; height: 70px" />
+						</a>						
+					</td>
 					<td style="vertical-align: middle">{{rom.name}}</td>
 					<!-- td>{{rom.pathFile}}</td>
                     <td>{{rom.extension}}</td>

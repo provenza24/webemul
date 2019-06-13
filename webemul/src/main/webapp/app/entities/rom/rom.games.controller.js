@@ -3,14 +3,14 @@
 
 	angular.module('webApp').controller('RomGamesController', RomGamesController);
 
-	RomGamesController.$inject = [ '$uibModalInstance', '$state', '$stateParams', 'Rom', 'TheGamesDbGames', 'TheGamesDbCovers', 'AlertService' ];
+	RomGamesController.$inject = [ '$document', '$uibModalInstance', '$state', '$stateParams', 'Rom', 'TheGamesDbGames', 'TheGamesDbCovers', 'AlertService' ];
 
-	function RomGamesController($uibModalInstance, $state, $stateParams, Rom, TheGamesDbGames, TheGamesDbCovers, AlertService) {
+	function RomGamesController($document, $uibModalInstance, $state, $stateParams, Rom, TheGamesDbGames, TheGamesDbCovers, AlertService) {
 
 		var vm = this;		
 		vm.clear = clear;
 		vm.download = download;
-		vm.loading = true;
+		vm.loading = true;		
 		
 		Rom.get({id : $stateParams.id}, function(result) {			
 			vm.rom = result;
@@ -32,11 +32,19 @@
 		
 		function download(gameId) {
 			vm.loading = true;
+			
+			/*var myEl = angular.element(document.querySelector('typewrite'));
+			myEl.attr('text',"attr val");*/
+			/*var element = $document[0].getElementById('typewrite');
+			element.attr('text','Test');*/
+			
 			TheGamesDbCovers.get({id: gameId, romId: vm.rom.id}, function(result) {
 				vm.loading = false;
+				vm.downloadingCover = false;
 				$uibModalInstance.close(result);
 			}, function(error) {
 				vm.loading = false;
+				vm.downloadingCover = false;
 				AlertService.error("Error while downloading cover from thegamesdb.net", error);
 			})
 		}
