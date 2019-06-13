@@ -117,6 +117,7 @@ h1.page-header {
 	z-index: 1000;
 	-webkit-transform: scale(2);
 	margin: 0 2em;
+	cursor: pointer;
 }
 
 #dock-container li:hover+li img, #dock-container li.prev img {
