@@ -8,6 +8,8 @@ public class ApiInformationDTO {
 	
 	private String imagesUrl;
 	
+	private String imagesBaseUrl;
+	
 	private String apiKey;
 
 	public String getApiUrl() {
@@ -40,6 +42,14 @@ public class ApiInformationDTO {
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public String getImagesBaseUrl() {
+		return imagesBaseUrl;
+	}
+
+	public void setImagesBaseUrl(String imagesBaseUrl) {
+		this.imagesBaseUrl = imagesBaseUrl;
 	}
 	
 	

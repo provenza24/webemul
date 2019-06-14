@@ -45,16 +45,16 @@
 					callback="vm.transition()">
 					<!-- th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th-->
 					<th jh-sort-by="consoleId"><span>CONSOLE</span> <span
-						class="glyphicon glyphicon-sort"></span></th>
+						class="glyphicon glyphicon-sort cursor-pointer"></span></th>
 					<th></th>
 					<th jh-sort-by="name"><span>NAME</span> <span
-						class="glyphicon glyphicon-sort"></span></th>
+						class="glyphicon glyphicon-sort cursor-pointer"></span></th>
 					<!-- th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="pathCover"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="cover"><span>Cover</span> <span class="glyphicon glyphicon-sort"></span></th-->
 					<th><span>CATEGORIES</span></th>
-					<th></th>
+					<!-- th></th-->
 				</tr>
 				</thead>
 				<tbody>
@@ -75,7 +75,11 @@
 							<img ng-if="!rom.cover" src="content/images/No-image-icon.jpg" style="margin: auto; height: 70px" />
 						</a>						
 					</td>
-					<td style="vertical-align: middle">{{rom.name}}</td>
+					<td style="vertical-align: middle">
+						<a ui-sref="rom-detail({id:rom.id})">
+							{{rom.name}}
+						</a>
+					</td>
 					<!-- td>{{rom.pathFile}}</td>
                     <td>{{rom.extension}}</td>
                     <td>{{rom.pathCover}}</td>

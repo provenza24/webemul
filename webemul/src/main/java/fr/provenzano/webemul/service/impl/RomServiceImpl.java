@@ -100,4 +100,23 @@ public class RomServiceImpl implements RomService {
         log.debug("Request to delete Rom : {}", id);
         romRepository.delete(id);
     }
+    
+    /**
+     * Save a rom.
+     *
+     * @param romDTO the entity to save
+     * @return the persisted entity
+     */
+    @Override
+    public boolean saveByFilePath(RomDTO romDTO) {
+        log.debug("Request to save Rom : {}", romDTO);
+        Rom dbRom = romRepository.findByPathFile(romDTO.getPathFile());
+        if (dbRom==null) {
+        	dbRom = romMapper.toEntity(romDTO);
+        	dbRom = romRepository.save(dbRom);
+        	return true;
+        }        
+        return false;
+    }
+    
 }

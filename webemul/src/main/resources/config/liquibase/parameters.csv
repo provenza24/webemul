@@ -8,4 +8,4 @@ id;name;jhi_label;jhi_value;jhi_type
 7;api.key;API key access key;79ed4d13b297d968cb10343a441d5dbfb6971aae1acbdcc403b14a4d0abef94a;SIMPLE
 8;api.games.url;API games search url;Games/ByGameName?apikey=%api.key%&name=%game.name%&filter[platform][]=%platform%;SIMPLE
 9;api.images.url;API images search url;Games/Images?apikey=%api.key%&games_id=%game_id%;SIMPLE
-
+10;api.images.download.url;Base URL to download images;https://cdn.thegamesdb.net/images/thumb/;SIMPLE

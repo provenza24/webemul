@@ -1,18 +1,21 @@
 package fr.provenzano.webemul.service.impl;
 
-import fr.provenzano.webemul.service.ConsoleService;
-import fr.provenzano.webemul.domain.Console;
-import fr.provenzano.webemul.repository.ConsoleRepository;
-import fr.provenzano.webemul.service.dto.ConsoleDTO;
-import fr.provenzano.webemul.service.mapper.ConsoleMapper;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import fr.provenzano.webemul.domain.Console;
+import fr.provenzano.webemul.domain.Rom;
+import fr.provenzano.webemul.repository.ConsoleRepository;
+import fr.provenzano.webemul.repository.RomRepository;
+import fr.provenzano.webemul.service.ConsoleService;
+import fr.provenzano.webemul.service.dto.ConsoleDTO;
+import fr.provenzano.webemul.service.mapper.ConsoleMapper;
 
 /**
  * Service Implementation for managing Console.
@@ -26,10 +29,13 @@ public class ConsoleServiceImpl implements ConsoleService {
     private final ConsoleRepository consoleRepository;
 
     private final ConsoleMapper consoleMapper;
+    
+    private final RomRepository romRepository;
 
-    public ConsoleServiceImpl(ConsoleRepository consoleRepository, ConsoleMapper consoleMapper) {
+    public ConsoleServiceImpl(ConsoleRepository consoleRepository, ConsoleMapper consoleMapper, RomRepository romRepository) {
         this.consoleRepository = consoleRepository;
         this.consoleMapper = consoleMapper;
+        this.romRepository = romRepository;
     }
 
     /**
@@ -83,5 +89,9 @@ public class ConsoleServiceImpl implements ConsoleService {
     public void delete(Long id) {
         log.debug("Request to delete Console : {}", id);
         consoleRepository.delete(id);
+    }
+    
+    public List<Rom> findConsoleRoms(Long consoleId) {
+    	return romRepository.findConsoleRoms(consoleId);
     }
 }

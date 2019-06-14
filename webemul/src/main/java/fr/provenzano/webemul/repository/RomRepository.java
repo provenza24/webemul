@@ -18,5 +18,10 @@ public interface RomRepository extends JpaRepository<Rom, Long>, JpaSpecificatio
 
     @Query("select rom from Rom rom left join fetch rom.genres where rom.id =:id")
     Rom findOneWithEagerRelationships(@Param("id") Long id);
+    
+    Rom findByPathFile(String pathFile);
 
+    @Query("select rom from Rom rom where rom.console.id =:consoleId")
+    List<Rom> findConsoleRoms(@Param("consoleId") Long consoleId);
+    
 }

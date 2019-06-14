@@ -1,7 +1,9 @@
 package fr.provenzano.webemul.service;
 
-import fr.provenzano.webemul.service.dto.ConsoleDTO;
 import java.util.List;
+
+import fr.provenzano.webemul.domain.Rom;
+import fr.provenzano.webemul.service.dto.ConsoleDTO;
 
 /**
  * Service Interface for managing Console.
@@ -37,4 +39,6 @@ public interface ConsoleService {
      * @param id the id of the entity
      */
     void delete(Long id);
+    
+    List<Rom> findConsoleRoms(Long consoleId);
 }

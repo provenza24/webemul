@@ -49,6 +49,8 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 		apiInformationDTO.setApiKey(parameterService.findByName("api.key").getValue());
 		apiInformationDTO.setGamesUrl(parameterService.findByName("api.games.url").getValue());
 		apiInformationDTO.setImagesUrl(parameterService.findByName("api.images.url").getValue());
+		apiInformationDTO.setImagesBaseUrl(parameterService.findByName("api.images.download.url").getValue());
+		
 
 		return apiInformationDTO;
 	}
@@ -123,7 +125,7 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 						String side = (String) cover.getSide();
 						if (type.equals("boxart") && side.equals("front")) {
 							try {
-								String urlString = "https://cdn.thegamesdb.net/images/small/" + cover.getFilename();
+								String urlString = apiInformationDTO.getImagesBaseUrl() + cover.getFilename();
 								byte[] imageAsByte = urlConnectionProxy.getBytes(urlString);
 								RomDTO romDTO = romService.findOne(romId);
 								romDTO.setCover(imageAsByte);

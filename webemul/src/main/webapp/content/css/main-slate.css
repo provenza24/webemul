@@ -318,7 +318,9 @@ Custom alerts for notification
 	margin-right: 160px
 }
 
-
+.cursor-pointer:hover {
+	cursor: pointer;
+}
 
 
 
