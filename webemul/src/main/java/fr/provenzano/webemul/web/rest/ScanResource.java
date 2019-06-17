@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +48,14 @@ public class ScanResource {
             	filenames.add(f.getAbsolutePath());
                 RomDTO romDTO = new RomDTO();
                 romDTO.setPathFile(f.getAbsolutePath());
-                romDTO.setName(f.getName());
+                String name = f.getName();
+                name = StringUtils.substringBeforeLast(name, ".");
+                name = name.replaceAll("\\(.*\\)|\\[.*\\]", "");
+                if (StringUtils.endsWith(name, " The")) {
+                	name = StringUtils.substringBeforeLast(name, " The");
+                }
+                name = StringUtils.trim(name);
+                romDTO.setName(name);
                 romDTO.setConsoleId(consoleDTO.getId());
                 boolean added = romService.saveByFilePath(romDTO);
                 if (added) {

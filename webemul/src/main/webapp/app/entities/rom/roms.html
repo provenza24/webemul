@@ -1,3 +1,10 @@
+<pageslide ps-open="vm.checked" ps-body-class="true" ps-side="left">
+	<div style="padding:20px">
+		<h2>Yo Pageslide</h2>
+		<p>Put here whatever you want</p>
+		<p><a ng-click="vm.toggle()" class="button" >Close</a></p>
+	</div>
+</pageslide>
 
 <div ng-show="vm.loading">
 	<img src="content/images/ajax-loader.gif"  class="img-responsive center-block" />
@@ -9,19 +16,29 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div id="dock-container">
 					<div id="dock">
-						<ul>
+						<ul style="padding-left:0px">
 							<li ng-repeat="console in vm.consoles | orderBy:['manufacturer', 'bits', 'name']"><span>{{console.abbreviation}}</span>
-								<a ng-click="vm.test(console.id)"><img ng-src="{{console.pathIcon}}" width="50px" /></a>
+								<a ng-click="vm.changeConsole(console.id)"><img ng-src="{{console.pathIcon}}" width="50px" /></a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2">
-				<button class="btn btn-primary" ui-sref="rom.new">
-					<span class="glyphicon glyphicon-plus"></span> <span> Add rom </span>
+				<button class="btn btn-primary pull-right" ng-click="vm.toggle()">
+					<span class="glyphicon glyphicon-cog"></span> <span> </span>
 				</button>
+				
 			</div>
+		</div>
+		<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<a>[0-9]</a>
+					<a style="margin-left:10px">[A-F]</a>
+					<a style="margin-left:10px">[G-L]</a>
+					<a style="margin-left:10px">[M-R]</a>
+					<a style="margin-left:10px">[S-Z]</a>
+				</div>
 		</div>
 	</div>
 
@@ -90,7 +107,7 @@
 					<td style="vertical-align: middle"><span
 						ng-repeat="genre in rom.genres | orderBy:'name'">
 							{{genre.name}}{{$last ? '' : ', '}} </span></td>
-					<td style="vertical-align: middle" class="text-right">
+					<!-- td style="vertical-align: middle" class="text-right">
 						<div class="btn-group flex-btn-group-container">
 							<button type="submit" ui-sref="rom-detail({id:rom.id})"
 								class="btn btn-info btn-sm">
@@ -109,7 +126,7 @@
 							</button>
 																					
 						</div>
-					</td>
+					</td-->
 				</tr>
 				</tbody>
 			</table>

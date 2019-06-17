@@ -42,7 +42,7 @@
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
                         ascending: PaginationUtil.parseAscending($stateParams.sort),
                         search: $stateParams.search,
-                        consoleId: $stateParams.consoleId
+                        consoleId: (angular.isDefined($stateParams.consoleId) ? $stateParams.consoleId : '')
                     };
                 }],
             }
@@ -51,7 +51,7 @@
         
         .state('rom-games', {
             parent: 'rom',
-            url: '/{id}/thegamesdb/games?name&consoleId',
+            url: '/{id}/thegamesdb/games?name',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'TheGamesDb games'
@@ -62,9 +62,9 @@
                     controller: 'RomGamesController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg'                    
+                    size: 'md'                    
                 }).result.then(function() {
-                    $state.go('^', {}, { reload: true });
+                    $state.go('^', {consoleId: (angular.isDefined($stateParams.consoleId) ? $stateParams.consoleId : '')}, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

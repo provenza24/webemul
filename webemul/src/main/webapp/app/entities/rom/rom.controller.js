@@ -3,14 +3,15 @@
 
 	angular.module('webApp').controller('RomController', RomController);
 
-	RomController.$inject = [ '$state', 'DataUtils', 'Console', 'Rom',
+	RomController.$inject = [ '$state','$stateParams', 'DataUtils', 'Console', 'Rom',
 			'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams' ];
 
-	function RomController($state, DataUtils, Console, Rom, ParseLinks,
+	function RomController($state, $stateParams, DataUtils, Console, Rom, ParseLinks,
 			AlertService, paginationConstants, pagingParams) {
 
 		var vm = this;
-
+		vm.consoleId = angular.isDefined(pagingParams.consoleId) ? pagingParams.consoleId : '';
+		
 		vm.loadPage = loadPage;
 		vm.predicate = pagingParams.predicate;
 		vm.reverse = pagingParams.ascending;
@@ -19,15 +20,21 @@
 		vm.openFile = DataUtils.openFile;
 		vm.byteSize = DataUtils.byteSize;
 		vm.consoles = Console.query();
-		vm.consoleId = angular.isDefined(pagingParams.consoleId) ? pagingParams.consoleId : '';
-		vm.test = test;
-		vm.loading = true;
+		vm.changeConsole = changeConsole;
+		vm.loading = true;		
+		vm.checked = false;
+        vm.size = '100px';
+        vm.toggle = function() {
+            vm.checked = !vm.checked
+        }
 
 		loadAll();
 
-		function test(consoleId) {
+		function changeConsole(consoleId) {
 			vm.consoleId = consoleId;
-			loadAll();
+			vm.page = 1;
+			vm.sort = '';
+			transition();
 		}
 		
 		function loadAll() {
@@ -78,7 +85,7 @@
 
 		function transition() {
 			$state.transitionTo($state.$current, {
-				'consoleId': pagingParams.consoleId,
+				consoleId: vm.consoleId,
 				page : vm.page,
 				sort : vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
 				search : vm.currentSearch

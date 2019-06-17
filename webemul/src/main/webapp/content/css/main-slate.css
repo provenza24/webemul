@@ -254,8 +254,9 @@ thead {
 	vertical-align: middle;
 }
 
-.popover{
-    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+.popover {
+	max-width: 100%;
+	/* Max Width of the popover (depending on the container!) */
 }
 
 /** PARAMETERS PAGE */
@@ -267,51 +268,51 @@ i.inactive {
 	color: #d9534f;
 }
 
-
 /* ==========================================================================
 Custom alerts for notification
 ========================================================================== */
-.alerts .alert{
-    text-overflow: ellipsis;
+.alerts .alert {
+	text-overflow: ellipsis;
 }
-.alert pre{
-    background: none;
-    border: none;
-    font: inherit;
-    color: inherit;
-    padding: 0;
-    margin: 0;
+
+.alert pre {
+	background: none;
+	border: none;
+	font: inherit;
+	color: inherit;
+	padding: 0;
+	margin: 0;
 }
 
 .alert .popover pre {
-    font-size: 10px;
+	font-size: 10px;
 }
 
 .alerts .toast {
-    position: fixed;
-    width: 100%;
+	position: fixed;
+	width: 100%;
 }
 
 .alerts .toast.left {
-    left: 5px;
+	left: 5px;
 }
 
 .alerts .toast.right {
-    right: 5px;
+	right: 5px;
 }
 
 .alerts .toast.top {
-    top: 55px;
+	top: 55px;
 }
 
 .alerts .toast.bottom {
-    bottom: 55px;
+	bottom: 55px;
 }
 
 @media screen and (min-width: 480px) {
-    .alerts .toast {
-        width: 50%;
-    }
+	.alerts .toast {
+		width: 50%;
+	}
 }
 
 .ng-toast .ng-toast__message .alert {
@@ -322,65 +323,87 @@ Custom alerts for notification
 	cursor: pointer;
 }
 
-
-
-
 /** TYPEWRITER DIRECTIVE EFFECT */
 /* All the keyframes 'vendor prefix' versions: */
-@-webkit-keyframes blink-it {
-	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
+@
+-webkit-keyframes blink-it { 0% {
+	opacity: 1;
 }
 
-@-moz-keyframes blink-it {
-	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
+50%
+{
+opacity
+:
+ 
+0;
+}
+100%
+{
+opacity
+:
+ 
+1;
+}
+}
+@
+-moz-keyframes blink-it { 0% {
+	opacity: 1;
 }
 
-@-o-keyframes blink-it {
-	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
+50%
+{
+opacity
+:
+ 
+0;
+}
+100%
+{
+opacity
+:
+ 
+1;
+}
+}
+@
+-o-keyframes blink-it { 0% {
+	opacity: 1;
 }
 
-@keyframes blink-it {
- 	0% {
-		opacity: 1;
-	}
+50%
+{
+opacity
+:
+ 
+0;
+}
+100%
+{
+opacity
+:
+ 
+1;
+}
+}
+@
+keyframes blink-it { 0% {
+	opacity: 1;
+}
 
-	50% {
-		opacity: 0;
-	}
-
-	100% {
-		opacity: 1;
-	}
+50%
+{
+opacity
+:
+ 
+0;
+}
+100%
+{
+opacity
+:
+ 
+1;
+}
 }
 
 /* Blinking class */
@@ -393,6 +416,55 @@ Custom alerts for notification
 }
 
 p {
-  font-family: Arial;
-  font-size: 16px;
+	font-family: Arial;
+	font-size: 16px;
+}
+
+/** APPEARING PANELS */
+.ng-pageslide {
+	background: #eee;
+}
+
+body.ng-pageslide-body-open::before {
+	content: '.';
+	display: block;
+	position: absolute;
+	top: 0;
+	background-color: rgb(0, 0, 0);
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	opacity: 0.5;
+	transition: opacity 1s;
+	opacity: 0.5;
+	pointer-events: all;
+}
+
+body.ng-pageslide-body-closed::before {
+	transition: opacity 1s;
+	content: '.';
+	display: block;
+	position: absolute;
+	top: 0;
+	background-color: rgb(0, 0, 0);
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	opacity: 0;
+	pointer-events: none;
+}
+
+#container1, #container2 {
+	width: 100%;
+	height: 20rem;
+	border: 1px solid lightGrey;
+	p
+	{
+	font-size
+	:
+	0.5rem
+	!important;
+}
 }

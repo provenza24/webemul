@@ -16,7 +16,11 @@
 			vm.rom = result;
 			TheGamesDbGames.query({name : vm.rom.name, consoleId: vm.rom.consoleId}, function(result) {
 				vm.games = result;
-				vm.loading = false;
+				if (vm.games.length==1) {
+					download(vm.games[0].id);
+				} else {
+					vm.loading = false;
+				}
 			}, function (error) {
 				AlertService.error("Error while retrieving rom information from database", error);
 				vm.loading = false;
@@ -39,9 +43,9 @@
 			element.attr('text','Test');*/
 			
 			TheGamesDbCovers.get({id: gameId, romId: vm.rom.id}, function(result) {
+				$uibModalInstance.close(result);
 				vm.loading = false;
 				vm.downloadingCover = false;
-				$uibModalInstance.close(result);
 			}, function(error) {
 				vm.loading = false;
 				vm.downloadingCover = false;

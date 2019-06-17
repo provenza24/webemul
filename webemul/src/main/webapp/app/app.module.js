@@ -14,7 +14,8 @@
             'ui.router',
             'infinite-scroll',
             'ngToast',
-            'ngTagsInput'
+            'ngTagsInput',
+            'pageslide-directive'
             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
         ])

@@ -1,21 +1,20 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
 		aria-hidden="true" ng-click="vm.clear()">&times;</button>
-	<h4 class="modal-title" id="myRomLabel">TheGamesDB corresponding game(s)</h4>
+	<h4 class="modal-title" id="myRomLabel">Corresponding game(s)</h4>
 </div>
 
-<div class="modal-body" style="height:450px; overflow: auto; position:relative">
+<div class="modal-body" style="height:350px; overflow: auto; position:relative">
 
 	<div ng-show="vm.loading" style="position: absolute;top: 50%; left: 50%; transform: translate(-50%, -50%);">
 		<img src="content/images/ajax-loader.gif"  class="img-responsive center-block" />
 		
-  		<p id="typewrite" typewrite type-delay="50" blink-cursor="true" text="Loading please wait ..."></p>
-  			
+  		<!-- p id="typewrite" typewrite type-delay="50" blink-cursor="true" text="Loading please wait ..."></p-->  			
 	</div>  
 
 	<div ng-show="!vm.loading && vm.games && vm.games.length==0">
     	<div class="alert alert-info">
-  			<strong>No game found ! </strong> TheGamesDb website doesn't contain any matching game.
+  			<strong>No game found ! </strong> TheGamesDb database doesn't contain any matching game.
 		</div>    	
     </div>
 
