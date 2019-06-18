@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -113,6 +114,17 @@ public class ParameterResource {
     public ResponseEntity<ParameterDTO> getParameter(@PathVariable Long id) {
         log.debug("REST request to get Parameter : {}", id);
         ParameterDTO parameterDTO = parameterService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(parameterDTO));
+    }
+    
+    /**
+     * 
+     */
+    @GetMapping("/parameters/search")
+    @Timed
+    public ResponseEntity<ParameterDTO> getParameterByName(@RequestParam("name") String name) {
+        log.debug("REST request to get Parameter : {}", name);
+        ParameterDTO parameterDTO = parameterService.findByName(name);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(parameterDTO));
     }
 

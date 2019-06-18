@@ -20,7 +20,6 @@
                 <tr>
                     <th><span>ID</span></th>
                     <th><span>Name</span></th>
-                    <th><span>Igdb ID</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -28,7 +27,6 @@
                 <tr ng-repeat="genre in vm.genres track by genre.id">
                     <td><a ui-sref="genre-detail({id:genre.id})">{{genre.id}}</a></td>
                     <td>{{genre.name}}</td>
-                    <td>{{genre.igdbID}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

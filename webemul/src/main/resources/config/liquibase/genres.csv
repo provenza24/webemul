@@ -1,21 +1,21 @@
-id;igdb_id;name
-1;2;Point-and-click
-2;4;Fighting
-3;5;Shooter
-4;7;Music
-5;8;Platform
-6;9;Puzzle
-7;10;Racing
-8;11;Real Time Strategy (RTS)
-9;12;Role-playing (RPG)
-10;13;Simulator
-11;14;Sport
-12;15;Startegy
-13;16;Turn-based strategy (TBS)
-14;24;Tactical
-15;25;Hack and slash/Beat 'em up
-16;26;Quiz/Trivia
-17;30;Pinball
-18;31;Adventure
-19;32;Indie
-20;33;Arcade
+id;name
+1;Action
+2;Adventure
+3;Construction and Management Simulation
+4;Role-Playing
+5;Puzzle
+6;Strategy
+7;Racing
+8;Shooter
+9;Life Simulation
+10;Fighting
+11;Sports
+12;Sandbox
+13;Flight Simulator
+14;MMO
+15;Platform
+16;Stealth
+17;Music
+18;Horror
+19;Vehicle Simulation
+            

@@ -1,59 +1,149 @@
 <div>
-   
-   	<h1 class="page-header">PARAMETERS</h1>
-   	<toast></toast>
-    <jhi-alert></jhi-alert>    
-    <br/>
-        
-    <div class="table-responsive">
-        <table class="jh-table table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th class="text-left"><span>NAME</span></th>
-                    <th class="text-left"><span>LABEL</span></th>
-                    <th class="text-left"><span>VALUE</span></th>
-                    <th class="text-left"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="parameter in vm.parameters track by parameter.id" ng-form="form_{{parameter.id}}">
-                	<td>{{parameter.name}}</td>
-                    <td>{{parameter.label}}</td>
-                    <td style="min-width:500px">
-                    <!-- span ng-show="parameter.name=='cron.mail.search.filter.date'">
+
+	<h1 class="page-header">PARAMETERS</h1>
+	<toast></toast>
+	<jhi-alert></jhi-alert>
+	<br />
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title text-center">PROXY CONFIGURATION</div>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="jh-table table table-striped table-hover">
+							<thead>
+								<tr>
+									<th class="text-left"><span>NAME</span></th>
+									<th class="text-left"><span>LABEL</span></th>
+									<th class="text-left"><span>VALUE</span></th>
+									<th class="text-left"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="parameter in vm.parameters track by parameter.id"
+									ng-form="form_{{parameter.id}}"
+									ng-show="vm.startsWith(parameter.name, 'proxy')">
+									<td>{{parameter.name}}</td>
+									<td>{{parameter.label}}</td>
+									<td style="max-width: 300px">
+										<!-- span ng-show="parameter.name=='cron.mail.search.filter.date'">
 	                    <span style="font-size:40px">
 	    					<i class="fa fa-toggle-on" ng-class="parameter.value=='ON' ? 'active' : 'fa-rotate-180 inactive'" ng-click="vm.changeStatus(parameter)"/>
 	   					</span>
    					</span>
                     <span ng-show="parameter.name!='cron.mail.search.filter.date'">
                     	{{parameter.value}}
-                    </span-->         
-                    	<span ng-if="parameter.type=='SIMPLE'">
-                    		<input type="text" class="form-control" name="value" ng-model="parameter.value">
-                    	</span>                               
-                    	<span ng-if="parameter.type=='NUMERIC'">
-                    		<input type="text" class="form-control" name="value" ng-model="parameter.value"  pattern="\d{1,5}">
-                    	</span>
-                    	<span ng-if="parameter.type=='SWITCH'">                    		
-                    		<i class="fa fa-2x fa-toggle-on" ng-class="parameter.value=='ON' ? 'active' : 'fa-rotate-180 inactive'" ng-click="vm.changeStatus(parameter)"/>
-                    	</span>
-                    	<span ng-if="parameter.type=='TAGS'">
-                    		<tags-input replace-spaces-with-dashes="false" on-tag-removed="vm.saveTags(parameter, $index)" on-tag-added="vm.saveTags(parameter, $index)" ng-model="vm.tagsValues[$index]" placeholder="Ajout tag"></tags-input>
-                    	</span>
-                    	       	   											                
-                    </td>
-                    <td class="text-right">
-                                           
-                        <button ng-disabled="form_{{parameter.id}}.$invalid" ng-show="parameter.type!='SWITCH' && parameter.type!='TAGS'"
-                        		type="button"                                    
-                                class="btn btn-primary"
-                                ng-click="vm.save(parameter)">                              
-                                 <i class="fa fa-lg fa-floppy-o"></i>                              
-						</button>
-						                        
-                    </td>                    
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    </span--> <span ng-if="parameter.type=='SIMPLE'">
+											<input type="text" class="form-control" name="value"
+											ng-model="parameter.value">
+									</span> <span ng-if="parameter.type=='NUMERIC'"> <input
+											type="text" class="form-control" name="value"
+											ng-model="parameter.value" pattern="\d{1,5}">
+									</span> <span ng-if="parameter.type=='SWITCH'"> <i
+											class="fa fa-2x fa-toggle-on"
+											ng-class="parameter.value=='ON' ? 'active' : 'fa-rotate-180 inactive'"
+											ng-click="vm.changeStatus(parameter)" />
+									</span> <span ng-if="parameter.type=='TAGS'"> <tags-input
+												replace-spaces-with-dashes="false"
+												on-tag-removed="vm.saveTags(parameter, $index)"
+												on-tag-added="vm.saveTags(parameter, $index)"
+												ng-model="vm.tagsValues[$index]" placeholder="Ajout tag"></tags-input>
+									</span>
+
+									</td>
+									<td class="text-right">
+
+										<button ng-disabled="form_{{parameter.id}}.$invalid"
+											ng-show="parameter.type!='SWITCH' && parameter.type!='TAGS'"
+											type="button" class="btn btn-primary"
+											ng-click="vm.save(parameter)">
+											<i class="fa fa-lg fa-floppy-o"></i>
+										</button>
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+
+		<div class="col-md-6">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">					
+					<div class="panel-title text-center">API CONFIGURATION</div>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="jh-table table table-striped table-hover">
+							<thead>
+								<tr>
+									<th class="text-left"><span>NAME</span></th>
+									<th class="text-left"><span>LABEL</span></th>
+									<th class="text-left"><span>VALUE</span></th>
+									<th class="text-left"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="parameter in vm.parameters track by parameter.id"
+									ng-form="form_{{parameter.id}}"
+									ng-show="vm.startsWith(parameter.name, 'api')">
+									<td>{{parameter.name}}</td>
+									<td>{{parameter.label}}</td>
+									<td style="max-width: 300px">
+										<!-- span ng-show="parameter.name=='cron.mail.search.filter.date'">
+	                    <span style="font-size:40px">
+	    					<i class="fa fa-toggle-on" ng-class="parameter.value=='ON' ? 'active' : 'fa-rotate-180 inactive'" ng-click="vm.changeStatus(parameter)"/>
+	   					</span>
+   					</span>
+                    <span ng-show="parameter.name!='cron.mail.search.filter.date'">
+                    	{{parameter.value}}
+                    </span--> <span ng-if="parameter.type=='SIMPLE'">
+											<input type="text" class="form-control" name="value"
+											ng-model="parameter.value">
+									</span> <span ng-if="parameter.type=='NUMERIC'"> <input
+											type="text" class="form-control" name="value"
+											ng-model="parameter.value" pattern="\d{1,5}">
+									</span> <span ng-if="parameter.type=='SWITCH'"> <i
+											class="fa fa-2x fa-toggle-on"
+											ng-class="parameter.value=='ON' ? 'active' : 'fa-rotate-180 inactive'"
+											ng-click="vm.changeStatus(parameter)" />
+									</span> <span ng-if="parameter.type=='TAGS'"> <tags-input
+												replace-spaces-with-dashes="false"
+												on-tag-removed="vm.saveTags(parameter, $index)"
+												on-tag-added="vm.saveTags(parameter, $index)"
+												ng-model="vm.tagsValues[$index]" placeholder="Ajout tag"></tags-input>
+									</span>
+
+									</td>
+									<td class="text-right">
+
+										<button ng-disabled="form_{{parameter.id}}.$invalid"
+											ng-show="parameter.type!='SWITCH' && parameter.type!='TAGS'"
+											type="button" class="btn btn-primary"
+											ng-click="vm.save(parameter)">
+											<i class="fa fa-lg fa-floppy-o"></i>
+										</button>
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
 </div>

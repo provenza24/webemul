@@ -53,7 +53,8 @@ public class TheGamesDbResource {
 	@GetMapping("/thegamesdb/covers/{id}")
 	@Timed
 	public void getCover(@PathVariable Long id, @RequestParam("romId") String romId) throws BadParameterException {		
-		log.debug("REST request to download cover from thegamesdb");		
+		log.debug("REST request to download cover from thegamesdb");
+		theGamesDbService.updateInformation(id, Long.parseLong(romId));
 		theGamesDbService.downloadCover(id, Long.parseLong(romId));
 	}
 	

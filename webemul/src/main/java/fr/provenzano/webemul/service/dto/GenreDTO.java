@@ -15,9 +15,6 @@ public class GenreDTO implements Serializable {
     @NotNull
     private String name;
 
-    @NotNull
-    private Integer igdbID;
-
     public Long getId() {
         return id;
     }
@@ -32,14 +29,6 @@ public class GenreDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getIgdbID() {
-        return igdbID;
-    }
-
-    public void setIgdbID(Integer igdbID) {
-        this.igdbID = igdbID;
     }
 
     @Override
@@ -67,8 +56,7 @@ public class GenreDTO implements Serializable {
     public String toString() {
         return "GenreDTO{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", igdbID=" + getIgdbID() +
+            ", name='" + getName() + "'" +           
             "}";
     }
 }

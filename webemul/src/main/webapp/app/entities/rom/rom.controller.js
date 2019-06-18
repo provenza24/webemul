@@ -4,26 +4,42 @@
 	angular.module('webApp').controller('RomController', RomController);
 
 	RomController.$inject = [ '$state','$stateParams', 'DataUtils', 'Console', 'Rom',
-			'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams' ];
+			'ParseLinks', 'AlertService', 'paginationConstants', 'RomPageConfiguration' ];
 
 	function RomController($state, $stateParams, DataUtils, Console, Rom, ParseLinks,
-			AlertService, paginationConstants, pagingParams) {
+			AlertService, paginationConstants, RomPageConfiguration) {
 
-		var vm = this;
-		vm.consoleId = angular.isDefined(pagingParams.consoleId) ? pagingParams.consoleId : '';
+		console.log("rom.controller::inController")
 		
+		var vm = this;
+		
+		vm.form = RomPageConfiguration.getForm();		
+		if (vm.form==null) {
+			vm.form = {page: 1, itemsPerPage: 20, queryCount: 0, totalItems: 0, predicate: '', reverse:false, display: 'LINE', consoleId: '', firstLetterRange: ''};
+			RomPageConfiguration.setForm(vm.form);
+		} else {
+			vm.totalItems = 1000;
+		}
+				
 		vm.loadPage = loadPage;
-		vm.predicate = pagingParams.predicate;
-		vm.reverse = pagingParams.ascending;
-		vm.transition = transition;
-		vm.itemsPerPage = paginationConstants.itemsPerPage;
-		vm.openFile = DataUtils.openFile;
-		vm.byteSize = DataUtils.byteSize;
+		vm.loadAll = loadAll;
+		vm.itemsPerPage = vm.form.itemsPerPage;
 		vm.consoles = Console.query();
 		vm.changeConsole = changeConsole;
 		vm.loading = true;		
 		vm.checked = false;
         vm.size = '100px';
+        vm.changeFirstRangeLetter = changeFirstRangeLetter;                
+        
+        vm.range = function(min, max, step) {
+            step = step || 1;
+            var input = [];
+            for (var i = min; i <= max; i += step) {
+                input.push(i);
+            }
+            return input;
+        };
+        
         vm.toggle = function() {
             vm.checked = !vm.checked
         }
@@ -31,24 +47,28 @@
 		loadAll();
 
 		function changeConsole(consoleId) {
-			vm.consoleId = consoleId;
-			vm.page = 1;
-			vm.sort = '';
-			transition();
+			vm.form.consoleId = consoleId;
+			vm.form.firstLetterRange = '';
+			vm.form.page = 1;
+			vm.form.sort = '';
+			RomPageConfiguration.setForm(vm.form);
+			loadAll();
 		}
 		
 		function loadAll() {
+			console.log("rom.controller::loadAll")
 			vm.loading = true;
-			Rom.query({
-				page : pagingParams.page - 1,
-				size : vm.itemsPerPage,
+			Rom.query({				
+				page : vm.form.page - 1,
+				size : vm.form.itemsPerPage,
 				sort : sort(),
-				consoleId : vm.consoleId
+				consoleId : vm.form.consoleId,
+				firstLetterRange: vm.form.firstLetterRange
 			}, onSuccess, onError);
 			function sort() {
-				var result = [ vm.predicate + ','
-						+ (vm.reverse ? 'asc' : 'desc') ];
-				if (vm.predicate !== 'id') {
+				var result = [ vm.form.predicate + ','
+						+ (vm.form.reverse ? 'asc' : 'desc') ];
+				if (vm.form.predicate !== 'id') {
 					result.push('id');
 				}
 				return result;
@@ -68,8 +88,7 @@
 				            image: vm.roms[i].img,
 				            placement: "bottom-left"
 				        };
-				}
-				vm.page = pagingParams.page;
+				}								
 				vm.loading = false;
 			}
 			function onError(error) {
@@ -79,21 +98,30 @@
 		}
 
 		function loadPage(page) {
-			vm.page = page;
-			vm.transition();
+						
+			console.log("rom.controller::loadPage")				
+			RomPageConfiguration.setForm(vm.form);
+			vm.loadAll();					
 		}
 
-		function transition() {
+		/*function transition() {
+			RomPageConfiguration.setForm(vm.form);
 			$state.transitionTo($state.$current, {
-				consoleId: vm.consoleId,
-				page : vm.page,
-				sort : vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-				search : vm.currentSearch
+				firstLetterRange: vm.form.firstLetterRange,
+				consoleId: vm.form.consoleId,
+				page : vm.form.page,
+				sort : vm.form.predicate + ',' + (vm.form.reverse ? 'asc' : 'desc'),
+				search : vm.form.currentSearch
 			});
+		}*/
+		
+		function changeFirstRangeLetter(range) {
+			vm.form.firstLetterRange = range;
+			vm.form.page = 1;
+			vm.form.sort = '';
+			RomPageConfiguration.setForm(vm.form);
+			loadAll();					
 		}
-		
-		
-
-		
+				
 	}
 })();

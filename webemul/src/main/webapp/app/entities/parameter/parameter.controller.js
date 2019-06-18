@@ -21,6 +21,10 @@
         
         loadAll();
         
+        vm.startsWith = function(string, prefix){
+        	  return string.startsWith(prefix);
+        }
+        
         function loadAll() {
             Parameter.query(function(result) {
                 vm.parameters = result;

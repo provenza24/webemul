@@ -1,9 +1,12 @@
 package fr.provenzano.webemul.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +16,12 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import fr.provenzano.webemul.service.GenreService;
 import fr.provenzano.webemul.service.RomService;
 import fr.provenzano.webemul.service.TechParameterService;
 import fr.provenzano.webemul.service.TheGamesDbService;
 import fr.provenzano.webemul.service.dto.ApiInformationDTO;
+import fr.provenzano.webemul.service.dto.GenreDTO;
 import fr.provenzano.webemul.service.dto.RomDTO;
 import fr.provenzano.webemul.service.errors.BadParameterException;
 import net.thegamesdb.Cover;
@@ -33,12 +38,15 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 	private final RomService romService;
 
 	private ApiInformationDTO apiInformationDTO;
+	
+	private final GenreService genreService;
 
-	public TheGamesDbServiceImpl(RomService romService, ProxyManager urlConnectionProxy, TechParameterService parameterService) {
+	public TheGamesDbServiceImpl(RomService romService, ProxyManager urlConnectionProxy, TechParameterService parameterService, GenreService genreService) {
 		
 		this.romService = romService;
 		this.urlConnectionProxy = urlConnectionProxy;
 		this.parameterService = parameterService;		
+		this.genreService = genreService;
 	}
 
 	private ApiInformationDTO getApiParameters() {
@@ -93,6 +101,49 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 		}
 		return result;
 	}
+	
+	public void updateInformation(Long id, Long romId) throws BadParameterException {
+		
+		this.urlConnectionProxy.initConnection();
+		
+		try {
+			String finalUrl = apiInformationDTO.getApiUrl() + "Games/ByGameID?apikey=%api.key%&id=%game.id%&fields=genres";
+			finalUrl = finalUrl.replace("%api.key%", apiInformationDTO.getApiKey());
+			finalUrl = finalUrl.replace("%game.id%", Long.toString(id));
+			
+			HttpResponse<JsonNode> response = Unirest.get(finalUrl).header("Accept", "application/json").asJson();
+			JsonNode node = response.getBody();
+			
+			Set<GenreDTO> genres = new HashSet<>();
+			RomDTO romDTO = romService.findOne(romId);
+					
+			JSONArray array = node.getArray();
+			for (int i = 0; i < array.length(); i++) {
+					try {
+						JSONObject jsonObject = (JSONObject) array.get(i);
+						JSONObject jsonDataObject = (JSONObject) jsonObject.get("data");
+						JSONArray jsonGamesObject = (JSONArray) jsonDataObject.get("games");
+						JSONObject jsonGameObject = (JSONObject) jsonGamesObject.get(i);
+						JSONArray jsonGenresObject = (JSONArray) jsonGameObject.get("genres");
+						for (int j = 0; j < jsonGenresObject.length(); j++) {
+							Integer genre = (Integer) jsonGenresObject.get(j);
+							GenreDTO genreDTO = genreService.findOne(genre.longValue());
+							if (genreDTO!=null) {
+								genres.add(genreDTO);
+							}
+						}
+						
+					} catch (JSONException e) {
+						throw new BadParameterException(e.getMessage());
+					}		
+			}
+			romDTO.setGenres(genres);
+			romService.save(romDTO);
+		} catch (UnirestException e) {
+			throw new BadParameterException(e.getMessage());
+		}
+	}
+	
 
 	@Override
 	public void downloadCover(Long id, Long romId) throws BadParameterException {

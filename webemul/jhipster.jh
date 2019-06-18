@@ -26,8 +26,7 @@ entity Emulator {
 }
 
 entity Genre {
-	name String required
-    igdbID Integer required
+	name String required    
 }
 
 entity Parameter {

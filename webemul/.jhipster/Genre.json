@@ -8,14 +8,7 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "igdbID",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        }
+        }        
     ],
     "changelogDate": "20181218101742",
     "entityTableName": "genre",

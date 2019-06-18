@@ -1,8 +1,22 @@
 <pageslide ps-open="vm.checked" ps-body-class="true" ps-side="left">
 	<div style="padding:20px">
-		<h2>Yo Pageslide</h2>
+		<h2>RECHERCHE</h2>
+		
+		<form action="/action_page.php">
+  			<div class="form-group">
+    			<label for="name">Nom du jeu:</label>
+    			<input type="name" class="form-control" id="name">
+  			</div>
+  		</form>
+		
+		
 		<p>Put here whatever you want</p>
-		<p><a ng-click="vm.toggle()" class="button" >Close</a></p>
+		<p>
+			<select class="form-control" ng-model="vm.form.display">
+        		<option value="LINE">Affichage détaillé</option>
+        		<option value="COVER">Affichage des jaquettes</option>
+        	</select>
+		<p><a ng-click="vm.toggle()" class="button" >Fermer</a></p>
 	</div>
 </pageslide>
 
@@ -32,13 +46,35 @@
 			</div>
 		</div>
 		<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<a>[0-9]</a>
-					<a style="margin-left:10px">[A-F]</a>
-					<a style="margin-left:10px">[G-L]</a>
-					<a style="margin-left:10px">[M-R]</a>
-					<a style="margin-left:10px">[S-Z]</a>
-				</div>
+			<div class="col-md-8 col-md-offset-2 text-center">
+				<a class="range" ng-click="vm.changeFirstRangeLetter('[0-9]')">[0-9]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[A-B]')">[A]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[B-C]')">[B]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[C-D]')">[C]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[D-E]')">[D]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[E-F]')">[E]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[F-G]')">[F]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[G-H]')">[G]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[H-I]')">[H]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[I-J]')">[I]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[J-K]')">[J]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[K-L]')">[K]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[L-M]')">[L]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[M-N]')">[M]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[N-P]')">[N]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[O-P]')">[O]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[P-Q]')">[P]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[Q-R]')">[Q]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[R-S]')">[R]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[S-T]')">[S]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[T-U]')">[T]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[U-V]')">[U]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[V-W]')">[V]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[W-X]')">[W]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[X-Y]')">[X]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[Y-Z]')">[Y]</a>
+				<a class="range" style="margin-left:10px" ng-click="vm.changeFirstRangeLetter('[Z-Z]')">[Z]</a>				
+			</div>
 		</div>
 	</div>
 
@@ -48,11 +84,11 @@
 	
 	<div ng-show="vm.roms && vm.roms.length==0">
     	<div class="alert alert-info">
-  			<strong>No rom found ! </strong> The database doesn't contain any rom.
+  			<strong>Aucun jeu trouvé ! </strong> La base de données ne contient aucun jeu correspondant.
 		</div>    	
     </div>
 	
-	<div ng-show="vm.roms && vm.roms.length>0" class="widget stacked widget-table action-table">
+	<div ng-show="vm.roms && vm.roms.length>0 && vm.form.display=='LINE'" class="widget stacked widget-table action-table">
 
 		<div class="widget-content">
 
@@ -64,13 +100,9 @@
 					<th jh-sort-by="consoleId"><span>CONSOLE</span> <span
 						class="glyphicon glyphicon-sort cursor-pointer"></span></th>
 					<th></th>
-					<th jh-sort-by="name"><span>NAME</span> <span
-						class="glyphicon glyphicon-sort cursor-pointer"></span></th>
-					<!-- th jh-sort-by="pathFile"><span>Path File</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="extension"><span>Extension</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="pathCover"><span>Path Cover</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="cover"><span>Cover</span> <span class="glyphicon glyphicon-sort"></span></th-->
-					<th><span>CATEGORIES</span></th>
+					<th jh-sort-by="name"><span>NOM</span> <span
+						class="glyphicon glyphicon-sort cursor-pointer"></span></th>					
+					<th><span>GENRE(S)</span></th>
 					<!-- th></th-->
 				</tr>
 				</thead>
@@ -86,10 +118,10 @@
 						<!--/a-->
 					</span></td>
 					<td style="vertical-align: middle">
-						<img ng-if="rom.cover" ng-src="{{rom.img}}" style="margin: auto; height: 70px"							
+						<img class="box" style="width:50px" ng-if="rom.cover" ng-src="{{rom.img}}"
 							uib-popover popover-trigger="mouseenter" popover-placement="right" uib-popover-template="'cover.html'">
 						<a ui-sref="rom-games({id:rom.id})">
-							<img ng-if="!rom.cover" src="content/images/No-image-icon.jpg" style="margin: auto; height: 70px" />
+							<img ng-if="!rom.cover" src="content/images/No-image-icon.jpg" class="box" style="width:50px" />
 						</a>						
 					</td>
 					<td style="vertical-align: middle">
@@ -97,13 +129,6 @@
 							{{rom.name}}
 						</a>
 					</td>
-					<!-- td>{{rom.pathFile}}</td>
-                    <td>{{rom.extension}}</td>
-                    <td>{{rom.pathCover}}</td>
-                    <td>
-                        <a ng-if="rom.cover" ng-click="vm.openFile(rom.coverContentType, rom.cover)">open</a>
-                        <span ng-if="rom.cover">{{rom.coverContentType}}, {{vm.byteSize(rom.cover)}}</span>                        
-                    </td-->
 					<td style="vertical-align: middle"><span
 						ng-repeat="genre in rom.genres | orderBy:'name'">
 							{{genre.name}}{{$last ? '' : ', '}} </span></td>
@@ -133,11 +158,80 @@
 
 		</div>
 	</div>
+										
+	<div ng-show="vm.roms && vm.roms.length>0 && vm.form.display=='COVER'">
+		
+		<div class="row" style="margin-top:20px">
+			<div class="col-md-1"/>
+			<div ng-repeat="n in vm.range(0, 4)" class="col-md-2">
 			
-	<div class="text-center" ng-show="vm.roms && vm.roms.length>0">
-		<jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
-		<uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+				<div class="img-container" ng-if="vm.roms[n].cover">
+					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
+				</div>
+				<div class="img-container" ng-if="!vm.roms[n].cover" ui-sref="rom-games({id:vm.roms[n].id})">					
+					<img src="content/images/No-image-icon.jpg" class="box cover" style="width:150px" />
+					<div>{{vm.roms[n].name}}</div>
+				</div>
+				
+			</div>
+			<div class="col-md-1"/>	
+		</div>
+		
+		<div class="row" style="margin-top:20px">
+			<div class="col-md-1"/>
+			<div ng-repeat="n in vm.range(5, 9)" class="col-md-2">
+			
+				<div class="img-container" ng-if="vm.roms[n].cover">
+					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
+				</div>
+				<div class="img-container" ng-if="!vm.roms[n].cover" ui-sref="rom-games({id:vm.roms[n].id})">					
+					<img src="content/images/No-image-icon.jpg" class="box cover" style="width:150px" />					
+					<div>{{vm.roms[n].name}}</div>
+				</div>
+				
+			</div>
+			<div class="col-md-1"/>	
+		</div>
+		
+		<div class="row" style="margin-top:20px">
+			<div class="col-md-1"/>
+			<div ng-repeat="n in vm.range(10, 14)" class="col-md-2">
+			
+				<div class="img-container" ng-if="vm.roms[n].cover">
+					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
+				</div>
+				<div class="img-container" ng-if="!vm.roms[n].cover" ui-sref="rom-games({id:vm.roms[n].id})">					
+					<img  src="content/images/No-image-icon.jpg" class="box cover" style="width:150px" />
+					<div>{{vm.roms[n].name}}</div>
+				</div>
+				
+			</div>
+			<div class="col-md-1"/>	
+		</div>
+		
+		<div class="row" style="margin-top:20px; margin-bottom:20px">
+			<div class="col-md-1"/>
+			<div ng-repeat="n in vm.range(15, 19)" class="col-md-2">
+			
+				<div class="img-container" ng-if="vm.roms[n].cover">
+					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
+				</div>
+				<div class="img-container" ng-if="!vm.roms[n].cover" ui-sref="rom-games({id:vm.roms[n].id})">					
+					<img src="content/images/No-image-icon.jpg" class="box cover" style="width:150px" />
+					<div>{{vm.roms[n].name}}</div>
+				</div>
+				
+			</div>
+			<div class="col-md-1"/>	
+		</div>
+				
 	</div>
+		
+	<div class="text-center" ng-show="vm.roms && vm.roms.length>0">
+		<jhi-item-count page="vm.form.page" total="vm.queryCount" items-per-page="vm.form.itemsPerPage"></jhi-item-count>
+		<uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.form.itemsPerPage" ng-model="vm.form.page" ng-change="vm.loadPage()"></uib-pagination>
+	</div>
+	
 </div>
 
 <script type="text/ng-template" id="cover.html">

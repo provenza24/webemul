@@ -95,8 +95,7 @@
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
-                                igdbID: null,
+                                name: null,                                
                                 id: null
                             };
                         }

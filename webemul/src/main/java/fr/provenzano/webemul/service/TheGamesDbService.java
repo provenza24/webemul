@@ -9,6 +9,8 @@ public interface TheGamesDbService {
 
 	public List<Game_> getGames(String name, Integer platform) throws BadParameterException;
 	
-	public void downloadCover(Long id, Long romId) throws BadParameterException;;
+	public void downloadCover(Long id, Long romId) throws BadParameterException;
+	
+	public void updateInformation(Long id, Long romId) throws BadParameterException;
 	
 }

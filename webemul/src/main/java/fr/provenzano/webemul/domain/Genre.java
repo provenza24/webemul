@@ -24,10 +24,6 @@ public class Genre implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "igdb_id", nullable = false)
-    private Integer igdbID;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -49,19 +45,7 @@ public class Genre implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Integer getIgdbID() {
-        return igdbID;
-    }
-
-    public Genre igdbID(Integer igdbID) {
-        this.igdbID = igdbID;
-        return this;
-    }
-
-    public void setIgdbID(Integer igdbID) {
-        this.igdbID = igdbID;
-    }
+   
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -88,8 +72,7 @@ public class Genre implements Serializable {
     public String toString() {
         return "Genre{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", igdbID=" + getIgdbID() +
+            ", name='" + getName() + "'" +            
             "}";
     }
 }

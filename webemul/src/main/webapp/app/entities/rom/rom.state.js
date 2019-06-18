@@ -11,7 +11,7 @@
         $stateProvider
         .state('rom', {
             parent: 'entity',
-            url: '/rom?page&sort&search&consoleId',
+            url: '/rom?page&sort&search&consoleId&firstLetterRange',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Roms'
@@ -33,21 +33,8 @@
                     squash: true
                 },
                 search: null
-            },
-            resolve: {
-                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
-                    return {
-                        page: PaginationUtil.parsePage($stateParams.page),
-                        sort: $stateParams.sort,
-                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
-                        ascending: PaginationUtil.parseAscending($stateParams.sort),
-                        search: $stateParams.search,
-                        consoleId: (angular.isDefined($stateParams.consoleId) ? $stateParams.consoleId : '')
-                    };
-                }],
             }
         })
-        
         
         .state('rom-games', {
             parent: 'rom',

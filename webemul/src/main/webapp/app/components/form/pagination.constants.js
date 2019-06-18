@@ -4,6 +4,6 @@
     angular
         .module('webApp')
         .constant('paginationConstants', {
-            'itemsPerPage': 10
+            'itemsPerPage': 20
         });
 })();

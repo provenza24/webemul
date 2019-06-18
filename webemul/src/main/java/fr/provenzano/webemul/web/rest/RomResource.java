@@ -110,7 +110,7 @@ public class RomResource {
      */
     @GetMapping("/roms")
     @Timed
-    public ResponseEntity<List<RomDTO>> getAllRoms(Pageable pageable, @RequestParam("consoleId")String consoleId) {    
+    public ResponseEntity<List<RomDTO>> getAllRoms(Pageable pageable, @RequestParam("consoleId")String consoleId, @RequestParam("firstLetterRange")String firstLetterRange) {    
         log.debug("REST request to get a page of Roms");
         
         SpecificationsHelper<Rom> specificationsHelper = new SpecificationsHelper<>();
@@ -118,6 +118,10 @@ public class RomResource {
         	Console console = consoleRepository.findOne(Long.parseLong(consoleId));
         	specificationsHelper.addSpecification(RomSpecifications.compareConsole(Rom_.console, console));
         }
+        if (StringUtils.isNotBlank(firstLetterRange)) {
+        	specificationsHelper.addSpecification(RomSpecifications.compareFirstLetter(Rom_.name, firstLetterRange));
+        }
+        
         
         Page<RomDTO> page = romService.findAll(pageable, specificationsHelper.getSpecifications());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/roms");

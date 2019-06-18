@@ -25,8 +25,7 @@ public class GenreMapperImpl implements GenreMapper {
 
         genre.setId( dto.getId() );
         genre.setName( dto.getName() );
-        genre.setIgdbID( dto.getIgdbID() );
-
+        
         return genre;
     }
 
@@ -40,8 +39,7 @@ public class GenreMapperImpl implements GenreMapper {
 
         genreDTO.setId( entity.getId() );
         genreDTO.setName( entity.getName() );
-        genreDTO.setIgdbID( entity.getIgdbID() );
-
+      
         return genreDTO;
     }
 
