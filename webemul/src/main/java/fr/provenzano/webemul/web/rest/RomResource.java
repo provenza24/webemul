@@ -156,4 +156,15 @@ public class RomResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
     
+    @DeleteMapping("/roms/delete-cover/{id}")
+    @Timed
+    public ResponseEntity<Void> deletecover(@PathVariable Long id) {
+        log.debug("REST request to delete Rom : {}", id);
+        RomDTO romDTO = romService.findOne(id);
+        romDTO.setCover(null);
+        romDTO.setCoverContentType(null);
+        romService.save(romDTO);
+        return ResponseEntity.ok().headers(HeaderUtil.coverDeletionAlert(romDTO.getName())).build();
+    }
+    
 }

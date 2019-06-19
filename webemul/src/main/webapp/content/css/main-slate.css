@@ -2,6 +2,10 @@ html, body {
 	height: 100%;
 }
 
+body > .angular-bootstrap-contextmenu.dropdown {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 a.range {	
 	text-decoration: none;
 	cursor: pointer;

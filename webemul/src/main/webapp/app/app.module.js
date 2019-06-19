@@ -15,7 +15,8 @@
             'infinite-scroll',
             'ngToast',
             'ngTagsInput',
-            'pageslide-directive'
+            'pageslide-directive',            
+            'ui.bootstrap.contextMenu'
             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
         ])

@@ -4,14 +4,12 @@
 	angular.module('webApp').controller('RomController', RomController);
 
 	RomController.$inject = [ '$state','$stateParams', 'DataUtils', 'Console', 'Rom',
-			'ParseLinks', 'AlertService', 'paginationConstants', 'RomPageConfiguration' ];
+			'ParseLinks', 'AlertService', 'paginationConstants', 'RomPageConfiguration', 'RomDeleteCover' ];
 
 	function RomController($state, $stateParams, DataUtils, Console, Rom, ParseLinks,
-			AlertService, paginationConstants, RomPageConfiguration) {
+			AlertService, paginationConstants, RomPageConfiguration, RomDeleteCover) {
 
-		console.log("rom.controller::inController")
-		
-		var vm = this;
+		var vm = this;				
 		
 		vm.form = RomPageConfiguration.getForm();		
 		if (vm.form==null) {
@@ -27,8 +25,7 @@
 		vm.consoles = Console.query();
 		vm.changeConsole = changeConsole;
 		vm.loading = true;		
-		vm.checked = false;
-        vm.size = '100px';
+		vm.checked = false;        
         vm.changeFirstRangeLetter = changeFirstRangeLetter;                
         
         vm.range = function(min, max, step) {
@@ -41,7 +38,7 @@
         };
         
         vm.toggle = function() {
-            vm.checked = !vm.checked
+            vm.checked = !vm.checked;
         }
 
 		loadAll();
@@ -56,7 +53,6 @@
 		}
 		
 		function loadAll() {
-			console.log("rom.controller::loadAll")
 			vm.loading = true;
 			Rom.query({				
 				page : vm.form.page - 1,
@@ -82,7 +78,7 @@
 					vm.roms[i].img = 'data:' + vm.roms[i].coverContentType
 							+ ';base64,' + vm.roms[i].cover;	
 					vm.popover = {
-				            content: "The lemon is a species of small evergreen tree native to Asia. The tree's ellipsoidal yellow fruit is used for culinary and non-culinary purposes throughout the world, primarily for its juice, which has both culinary and cleaning uses.",
+				            content: "",
 				            templateUrl: "app/entities/rom/popoverImageTemplate.html",
 				            title: "Lemon",
 				            image: vm.roms[i].img,
@@ -103,17 +99,6 @@
 			RomPageConfiguration.setForm(vm.form);
 			vm.loadAll();					
 		}
-
-		/*function transition() {
-			RomPageConfiguration.setForm(vm.form);
-			$state.transitionTo($state.$current, {
-				firstLetterRange: vm.form.firstLetterRange,
-				consoleId: vm.form.consoleId,
-				page : vm.form.page,
-				sort : vm.form.predicate + ',' + (vm.form.reverse ? 'asc' : 'desc'),
-				search : vm.form.currentSearch
-			});
-		}*/
 		
 		function changeFirstRangeLetter(range) {
 			vm.form.firstLetterRange = range;
@@ -122,6 +107,27 @@
 			RomPageConfiguration.setForm(vm.form);
 			loadAll();					
 		}
+		
+		vm.menuOptions = [
+		    // NEW IMPLEMENTATION
+		    {
+		        text: 'Supprimer la jaquette',
+		        click: function ($itemScope, $event, modelValue, text, $li) {		        	
+		        	RomDeleteCover.delete({id: $itemScope.rom.id}, function(result) {
+		        		vm.loadAll();
+		        	}, function (error) {
+		        		AlertService.error("Erreur lors de la suppression de la jaquette", error);
+		        	});		        	
+		        }
+		    },		    
+		    null, // Dividier
+		    {
+		        text: 'Object-Remove',
+		        click: function ($itemScope, $event, modelValue, text, $li) {
+		        	console.log("Not implemented");
+		        }
+		    }
+		];
 				
 	}
 })();

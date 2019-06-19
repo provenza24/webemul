@@ -44,6 +44,10 @@ public final class HeaderUtil {
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
         return createAlert("A " + entityName + " is deleted with identifier " + param, param);
     }
+    
+    public static HttpHeaders coverDeletionAlert(String romName) {
+        return createAlert("La jaquette du rom " + romName + " a été supprimée", romName);
+    }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         log.error("Entity processing failed, {}", defaultMessage);

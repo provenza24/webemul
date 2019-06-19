@@ -1,6 +1,23 @@
 <pageslide ps-open="vm.checked" ps-body-class="true" ps-side="left">
+	
 	<div style="padding:20px">
-		<h2>RECHERCHE</h2>
+	
+		<div class="panel panel-primary">
+  			<div class="panel-heading">
+				<h3 class="panel-title text-center">AFFICHAGE</h3>
+  			</div>			
+		</div>
+		
+		<select class="form-control" ng-model="vm.form.display">
+	        <option value="LINE">Affichage détaillé</option>
+	        <option value="COVER">Affichage des jaquettes</option>
+		</select>
+										  		
+  		<div class="panel panel-primary" style="margin-top:30px">
+  			<div class="panel-heading">
+				<h3 class="panel-title">RECHERCHE</h3>
+  			</div>			
+		</div>
 		
 		<form action="/action_page.php">
   			<div class="form-group">
@@ -8,22 +25,17 @@
     			<input type="name" class="form-control" id="name">
   			</div>
   		</form>
+						
+		<p><a ng-click="vm.toggle()" class="button" >Fermer</a></p>	
 		
-		
-		<p>Put here whatever you want</p>
-		<p>
-			<select class="form-control" ng-model="vm.form.display">
-        		<option value="LINE">Affichage détaillé</option>
-        		<option value="COVER">Affichage des jaquettes</option>
-        	</select>
-		<p><a ng-click="vm.toggle()" class="button" >Fermer</a></p>
 	</div>
+	
 </pageslide>
 
 <div ng-show="vm.loading">
 	<img src="content/images/ajax-loader.gif"  class="img-responsive center-block" />
 </div>  
-	
+
 <div ng-show="!vm.loading">
 	<div class="container-fluid">
 		<div class="row">			
@@ -117,7 +129,7 @@
 								ng-src="{{console.pathControllerIcon}}">
 						<!--/a-->
 					</span></td>
-					<td style="vertical-align: middle">
+					<td style="vertical-align: middle" context-menu="vm.menuOptions">
 						<img class="box" style="width:50px" ng-if="rom.cover" ng-src="{{rom.img}}"
 							uib-popover popover-trigger="mouseenter" popover-placement="right" uib-popover-template="'cover.html'">
 						<a ui-sref="rom-games({id:rom.id})">
@@ -163,7 +175,7 @@
 		
 		<div class="row" style="margin-top:20px">
 			<div class="col-md-1"/>
-			<div ng-repeat="n in vm.range(0, 4)" class="col-md-2">
+			<div ng-repeat="n in vm.range(0, 4)" class="col-md-2" ng-show="n<vm.roms.length">
 			
 				<div class="img-container" ng-if="vm.roms[n].cover">
 					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
@@ -179,7 +191,7 @@
 		
 		<div class="row" style="margin-top:20px">
 			<div class="col-md-1"/>
-			<div ng-repeat="n in vm.range(5, 9)" class="col-md-2">
+			<div ng-repeat="n in vm.range(5, 9)" class="col-md-2" ng-show="n<vm.roms.length">
 			
 				<div class="img-container" ng-if="vm.roms[n].cover">
 					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
@@ -195,7 +207,7 @@
 		
 		<div class="row" style="margin-top:20px">
 			<div class="col-md-1"/>
-			<div ng-repeat="n in vm.range(10, 14)" class="col-md-2">
+			<div ng-repeat="n in vm.range(10, 14)" class="col-md-2" ng-show="n<vm.roms.length">
 			
 				<div class="img-container" ng-if="vm.roms[n].cover">
 					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
@@ -211,7 +223,7 @@
 		
 		<div class="row" style="margin-top:20px; margin-bottom:20px">
 			<div class="col-md-1"/>
-			<div ng-repeat="n in vm.range(15, 19)" class="col-md-2">
+			<div ng-repeat="n in vm.range(15, 19)" class="col-md-2" ng-show="n<vm.roms.length">
 			
 				<div class="img-container" ng-if="vm.roms[n].cover">
 					<img class="box cover" style="width:150px"  ng-src="{{vm.roms[n].img}}"/>
