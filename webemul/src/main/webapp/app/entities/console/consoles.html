@@ -14,37 +14,25 @@
             </div>
         </div>
     </div>
-    <br/>
-
-	<ul>
-		<li ng-repeat="updatedRom in vm.updatedRoms">
-			{{updatedRom.name}} -> {{updatedRom.status}}
-		</li>
-	</ul>
-	
+    <br/>	
 
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
                 <tr>
                     <th><span></span></th>
-                    <!-- th><span></span></th-->
-                    <!-- th><span>Abbreviation</span></th-->
-                    <th><span>NAME</span></th>                    
-                    <th><span>MANUFACTURER</span></th>
+                    <th><span>NOM</span></th>                    
+                    <th><span>FABRICANT</span></th>
                     <th><span>GENERATION</span></th>
-                    <th><span>NB BITS</span></th>
-                    <!-- th><span>DESCRIPTION</span></th-->
-                    <th><span>DEFAULT EMULATOR</span></th>
-                    <th><span>EMULATORS</span></th>
+                    <th><span>BITS</span></th>
+                    <th><span>EMULATEUR PAR DEFAUT</span></th>
+                    <th><span>EMULATEURS</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="console in vm.consoles track by console.id">
+                <tr ng-repeat="console in vm.consoles | orderBy:'name'">
                     <td><a ui-sref="console-detail({id:console.id})"><img ng-show="console.pathIcon" style="width:40px; margin-right:10px" ng-src="{{console.pathIcon}}" alt="..."></a></td>
-                    <!-- td><img ng-show="console.pathIcon" style="width:32px" ng-src="{{console.pathIcon}}" alt="..."></td-->
-                    <!-- td>{{console.abbreviation}}</td-->
                     <td>{{console.name}}</td>                    
                     <td>{{console.manufacturer}}</td>
                     <td>{{console.generation}}</td>
@@ -62,8 +50,9 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                        	<button type="button" ng-click="vm.scanRoms(console.id)"                                    
-                                    class="btn btn-success btn-xs">
+                        	<button ng-show="console.pathRomsFolder" type="submit" 
+                        			ui-sref="console-scan({id:console.id, name: console.abbreviation})"
+                                   class="btn btn-success btn-xs">
                                 <span class="glyphicon glyphicon-refresh"></span>
                                 <span class="hidden-sm-down"></span>
                             </button>

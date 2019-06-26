@@ -7,7 +7,7 @@
 	<artifactId>webemul</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-	<name>Web DPS</name>
+	<name>WebEmul</name>
 
 	<repositories>
 		<repository>
@@ -410,17 +410,17 @@
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<annotationProcessorPaths>
-						<path>
+						<!-- path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${mapstruct.version}</version>
-						</path>
+						</path-->
 						<!-- For JPA static metamodel generation -->
-						<path>
+						<!-- path>
 							<groupId>org.hibernate</groupId>
 							<artifactId>hibernate-jpamodelgen</artifactId>
 							<version>${hibernate.version}</version>
-						</path>
+						</path-->
 
 					</annotationProcessorPaths>
 				</configuration>
@@ -739,6 +739,7 @@
 									<enableNaming>false</enableNaming>
 									<finalName>standalone.jar</finalName>
 									<charset>utf-8</charset>
+									<maven.tomcat.port>8081</maven.tomcat.port>									 
 								</configuration>
 							</execution>
 						</executions>

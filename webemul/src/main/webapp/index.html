@@ -43,10 +43,10 @@
 								<!-- h5>v{{VERSION}}</h5-->
 							</div>
 							<div class="col-xs-4 col-md-4">
-								<form>
+								<form ng-submit="search(searchTerm)">
 									<div class="input-group input-group-md">
-										<input type="text" class="form-control" placeholder="Recherche rapide">
-										<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+										<input ng-model="searchTerm" type="text" class="form-control" placeholder="Recherche rapide">
+										<span class="input-group-addon" ng-click="search(searchTerm)"><span class="glyphicon glyphicon-search"></span></span>
 									</div>
 								</form>
 							</div>
@@ -146,10 +146,11 @@
 	<script src="app/entities/console/console.service.js"></script>
 	<script src="app/entities/console/console.scan.service.js"></script>
 	<script src="app/entities/console/console.controller.js"></script>
+	<script src="app/entities/console/scan.controller.js"></script>
 	<script src="app/directives/uppercase.directive.js"></script>
 	<script src="app/directives/capitalize.directive.js"></script>
 	<script src="app/directives/trusted.filter.js"></script>
-	<script src="app/directives/typewrite.directive.js"></script>	
+	<script src="app/directives/typewrite.directive.js"></script>
 	<script src="app/datetime-picker.min.js"></script>
 	<script src="app/components/util/truncate-words.filter.js"></script>
 	<script src="app/components/util/truncate-characters.filter.js"></script>

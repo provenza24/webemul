@@ -1,0 +1,35 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-hidden="true" ng-click="vm.clear()">&times;</button>
+	<h4 class="modal-title" id="myRomLabel">Bilan de la mise à jour ({{vm.name}})</h4>
+</div>
+
+<div class="modal-body" style="min-height:100px;max-height:350px; overflow: auto; position:relative">
+
+	<div ng-show="vm.loading" style="position: absolute;top: 50%; left: 50%; transform: translate(-50%, -50%);">
+		<img src="content/images/ajax-loader.gif"  class="img-responsive center-block" />		  		
+	</div>  
+
+	<div ng-show="!vm.loading && vm.updatedRoms && vm.updatedRoms.length==0">
+    	<div class="alert alert-info">
+  			<strong>La base de données est à jour.</strong>
+		</div>    	
+    </div>
+
+		<div ng-repeat="updatedRom in vm.updatedRoms">
+		<span ng-show="updatedRom.status=='DELETED'" style="color:red" class="glyphicon glyphicon-remove"></span>
+			<span ng-show="updatedRom.status=='DELETED'" style="color:red">{{updatedRom.name}}</span>					
+						
+			<span ng-show="updatedRom.status=='ADDED'" style="color:green" class="glyphicon glyphicon-ok"></span>
+			<span ng-show="updatedRom.status=='ADDED'" style="color:green">{{updatedRom.name}}</span>
+		</div>
+	
+	
+</div>
+
+<!--div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal"
+		ng-click="vm.clear()">
+		<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Close</span>
+	</button>
+</div-->

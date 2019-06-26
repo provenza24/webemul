@@ -11,7 +11,7 @@
         $stateProvider
         .state('rom', {
             parent: 'entity',
-            url: '/rom?page&sort&search&consoleId&firstLetterRange',
+            url: '/rom?page&sort&search&consoleId&firstLetterRange&gameName&genreId',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Roms'

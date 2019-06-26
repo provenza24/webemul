@@ -26,6 +26,26 @@
             resolve: {
             }
         })
+        .state('console-scan', {
+            parent: 'console',
+            url: '/console/scan/{id}?name',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/console/scan.html',
+                    controller: 'ScanDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'md',                    
+                }).result.then(function() {
+                    $state.go('^', {}, { reload: false });
+                }, function() {
+                    $state.go('^');
+                });
+            }]
+        })
         .state('console-detail', {
             parent: 'console',
             url: '/console/{id}',
@@ -66,12 +86,7 @@
                     controller: 'ConsoleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: ['Console', function(Console) {
-                            return Console.get({id : $stateParams.id}).$promise;
-                        }]
-                    }
+                    size: 'lg'                    
                 }).result.then(function() {
                     $state.go('^', {}, { reload: false });
                 }, function() {

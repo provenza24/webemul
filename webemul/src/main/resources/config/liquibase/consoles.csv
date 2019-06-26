@@ -4,3 +4,5 @@ id;abbreviation;name;path_icon;path_controller_icon;manufacturer;generation;bits
 3;MASTER SYSTEM;MASTER SYSTEM;content/images/consoles/master_system-512.png;content/images/consoles/master_system-512.png;SEGA;3;8;;;null;35
 4;MEGADRIVE;MEGADRIVE;content/images/consoles/megadrive.png;content/images/controllers/megadrive.png;SEGA;3;8;;;null;36
 5;SNES;SUPER NINTENDO;content/images/consoles/snes.png;content/images/controllers/snes.png;NINTENDO;4;16;;;null;6
+6;GBA;GAMEBOY ADVANCE;content/images/consoles/gba.png;content/images/consoles/gba.png;NINTENDO;6;32;;;null;5
+7;GAMEGEAR;GAME GEAR;content/images/consoles/gamegear.gif;content/images/consoles/gamegear.gif;SEGA;4;8;;;null;20

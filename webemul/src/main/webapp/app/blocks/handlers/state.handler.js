@@ -5,9 +5,9 @@
         .module('webApp')
         .factory('stateHandler', stateHandler);
 
-    stateHandler.$inject = ['$rootScope', '$state', '$sessionStorage',  '$window', '$location', 'VERSION', 'AuthService'];
+    stateHandler.$inject = ['$rootScope', '$state', '$sessionStorage',  '$window', '$location', 'VERSION', 'AuthService', 'RomPageConfiguration'];
 
-    function stateHandler($rootScope, $state, $sessionStorage,  $window, $location, VERSION, AuthService) {
+    function stateHandler($rootScope, $state, $sessionStorage,  $window, $location, VERSION, AuthService, RomPageConfiguration) {
         return {
             initialize: initialize,            
         };
@@ -49,6 +49,12 @@
             $rootScope.reload = function() {
             	$window.location.href = "/";
             	$window.location.reload();
+            }
+            
+            $rootScope.search = function(searchTerm) {
+            	var form = {page: 1, itemsPerPage: 20, queryCount: 0, totalItems: 0, predicate: 'name', reverse:true, display: 'LINE', consoleId: '', firstLetterRange: '', gameName: searchTerm, genre:{id:''}};
+    			RomPageConfiguration.setForm(form);    			
+    			$state.go('rom', {}, { reload: true });
             }
         }
     }

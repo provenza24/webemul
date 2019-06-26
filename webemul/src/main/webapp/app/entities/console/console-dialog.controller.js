@@ -5,32 +5,27 @@
         .module('webApp')
         .controller('ConsoleDialogController', ConsoleDialogController);
 
-    ConsoleDialogController.$inject = ['$q','$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Console', 'Rom', 'Emulator'];
+    ConsoleDialogController.$inject = ['$q','$timeout', '$scope', '$stateParams', '$uibModalInstance', 'Console', 'Emulator', 'AlertService'];
 
-    function ConsoleDialogController ($q, $timeout, $scope, $stateParams, $uibModalInstance, entity, Console, Rom, Emulator) {
-        var vm = this;
+    function ConsoleDialogController ($q, $timeout, $scope, $stateParams, $uibModalInstance, Console, Emulator, AlertService) {
+        
+    	var vm = this;
 
-        vm.console = entity;
         vm.clear = clear;
         vm.save = save;
-        /*vm.defaultemulators = Emulator.query({filter: 'console-is-null'});
-        $q.all([vm.console.$promise, vm.defaultemulators.$promise]).then(function() {
-            if (!vm.console.defaultEmulatorId) {
-                return $q.reject();
-            }
-            return Emulator.get({id : vm.console.defaultEmulatorId}).$promise;
-        }).then(function(defaultEmulator) {
-            vm.defaultemulators.push(defaultEmulator);
-        });*/
-        $q.all([vm.console.$promise]).then(function() {
-            if (!vm.console.defaultEmulatorId) {
-                return $q.reject();
-            }
-            return Emulator.get({id : vm.console.defaultEmulatorId}).$promise;
-        });
-        // vm.roms = Rom.query();
-        vm.emulators = Emulator.query();
-
+        vm.loading = true;
+        
+        Console.get({id : $stateParams.id}).$promise.then(function (data) {
+        	vm.console = data;        	
+            return Emulator.query().$promise;
+    	}).then(function (data) {
+    		vm.emulators = data;
+    		vm.loading = false;
+    	}).catch(function(error){        		        		
+    		vm.loading = false;
+    		AlertService.error("Erreur lors du chargement de la page", error);
+    	});
+                        
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -48,16 +43,14 @@
             }
         }
 
-        function onSaveSuccess (result) {
-            $scope.$emit('webEmulApp:consoleUpdate', result);
-            $uibModalInstance.close(result);
-            vm.isSaving = false;
+        function onSaveSuccess (result) {            
+            $uibModalInstance.close(result);            
         }
 
         function onSaveError () {
             vm.isSaving = false;
+            AlertService.error("Erreur lors de la sauvegarde !", error);
         }
-
 
     }
 })();

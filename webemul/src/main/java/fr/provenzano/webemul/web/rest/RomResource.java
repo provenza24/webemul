@@ -33,7 +33,9 @@ import fr.provenzano.webemul.domain.Rom_;
 import fr.provenzano.webemul.repository.ConsoleRepository;
 import fr.provenzano.webemul.repository.RomSpecifications;
 import fr.provenzano.webemul.repository.SpecificationsHelper;
+import fr.provenzano.webemul.service.GenreService;
 import fr.provenzano.webemul.service.RomService;
+import fr.provenzano.webemul.service.dto.GenreDTO;
 import fr.provenzano.webemul.service.dto.RomDTO;
 import fr.provenzano.webemul.web.rest.errors.BadRequestAlertException;
 import fr.provenzano.webemul.web.rest.util.HeaderUtil;
@@ -54,9 +56,12 @@ public class RomResource {
     private final RomService romService;
     
     private final ConsoleRepository consoleRepository;
+    
+    private final GenreService genreService;
 
-    public RomResource(RomService romService, ConsoleRepository consoleRepository) {
+    public RomResource(RomService romService, GenreService genreService, ConsoleRepository consoleRepository) {
         this.romService = romService;
+        this.genreService = genreService;
         this.consoleRepository = consoleRepository;
     }
 
@@ -110,7 +115,8 @@ public class RomResource {
      */
     @GetMapping("/roms")
     @Timed
-    public ResponseEntity<List<RomDTO>> getAllRoms(Pageable pageable, @RequestParam("consoleId")String consoleId, @RequestParam("firstLetterRange")String firstLetterRange) {    
+    public ResponseEntity<List<RomDTO>> getAllRoms(Pageable pageable, @RequestParam("consoleId")String consoleId, @RequestParam("firstLetterRange")String firstLetterRange,
+    		@RequestParam("gameName")String gameName, @RequestParam("genreId")String genreId) {    
         log.debug("REST request to get a page of Roms");
         
         SpecificationsHelper<Rom> specificationsHelper = new SpecificationsHelper<>();
@@ -121,7 +127,13 @@ public class RomResource {
         if (StringUtils.isNotBlank(firstLetterRange)) {
         	specificationsHelper.addSpecification(RomSpecifications.compareFirstLetter(Rom_.name, firstLetterRange));
         }
-        
+        if (StringUtils.isNotBlank(gameName)) {
+        	specificationsHelper.addSpecification(RomSpecifications.nameContainsIgnoreCase(Rom_.name, gameName));
+        }     
+        if (StringUtils.isNotBlank(genreId)) {        	
+        	GenreDTO genreDTO = genreService.findOne(Long.parseLong(genreId));
+        	specificationsHelper.addSpecification(RomSpecifications.compareGenre(genreDTO));
+        }
         
         Page<RomDTO> page = romService.findAll(pageable, specificationsHelper.getSpecifications());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/roms");
