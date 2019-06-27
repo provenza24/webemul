@@ -26,6 +26,16 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label" for="field_releaseDate">Release Date</label>
+                <div class="input-group">
+                    <input id="field_releaseDate" type="text" class="form-control" name="releaseDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.rom.releaseDate" is-open="vm.datePickerOpenStatus.releaseDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('releaseDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
             <label class="control-label" for="field_pathFile">Path File</label>
             <input type="text" class="form-control" name="pathFile" id="field_pathFile"
                     ng-model="vm.rom.pathFile"

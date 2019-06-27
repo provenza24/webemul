@@ -79,6 +79,7 @@ public class RomMapperImpl implements RomMapper {
         
         romDTO.setId( rom.getId() );
         romDTO.setName( rom.getName() );
+        romDTO.setReleaseDate( rom.getReleaseDate() );
         romDTO.setPathFile( rom.getPathFile() );
         romDTO.setExtension( rom.getExtension() );
         romDTO.setPathCover( rom.getPathCover() );
@@ -104,6 +105,7 @@ public class RomMapperImpl implements RomMapper {
         rom.setConsole( consoleMapper.fromId( romDTO.getConsoleId() ) );
         rom.setId( romDTO.getId() );
         rom.setName( romDTO.getName() );
+        rom.setReleaseDate( romDTO.getReleaseDate() );
         rom.setPathFile( romDTO.getPathFile() );
         rom.setExtension( romDTO.getExtension() );
         rom.setPathCover( romDTO.getPathCover() );

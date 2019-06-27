@@ -138,7 +138,9 @@
 							class="glyphicon glyphicon-sort cursor-pointer"></span></th>
 						<th></th>
 						<th jh-sort-by="name"><span>NOM</span> <span
-							class="glyphicon glyphicon-sort cursor-pointer"></span></th>					
+							class="glyphicon glyphicon-sort cursor-pointer"></span></th>		
+						<th jh-sort-by="releaseDate"><span>DATE SORTIE</span> <span
+							class="glyphicon glyphicon-sort cursor-pointer"></span></th>			
 						<th><span>GENRE(S)</span></th>
 						<!-- th></th-->
 					</tr>
@@ -149,13 +151,11 @@
 						<td style="vertical-align: middle"><span
 							ng-repeat="console in vm.consoles"> 
 							<!-- a ng-show="rom.consoleId==console.id" ui-sref="console-detail({id:rom.consoleId})"--> 
-							<img ng-show="rom.consoleId==console.id"
-									style="width: 40px;"
-									ng-src="{{console.pathIcon}}">
+							<img ng-show="rom.consoleId==console.id" style="width: 40px;" ng-src="{{console.pathIcon}}">
 							<!--/a-->
 						</span></td>
 						<td style="vertical-align: middle" context-menu="vm.menuOptions">
-							<img class="box" style="width:50px" ng-if="rom.cover" ng-src="{{rom.img}}"
+							<img style="width:50px" ng-if="rom.cover" ng-src="{{rom.img}}"
 								uib-popover popover-trigger="mouseenter" popover-placement="right" uib-popover-template="'cover.html'">
 							<a ng-click="vm.downloadCover(rom.id)">
 								<img ng-if="!rom.cover" src="content/images/No-image-icon.jpg" class="box" style="width:50px" />
@@ -165,6 +165,9 @@
 							<a ui-sref="rom-detail({id:rom.id})">
 								{{rom.name}}
 							</a>
+						</td>
+						<td style="vertical-align: middle">
+							{{rom.releaseDate | date:'dd/MM/yyyy'}}
 						</td>
 						<td style="vertical-align: middle"><span
 							ng-repeat="genre in rom.genres | orderBy:'name'">

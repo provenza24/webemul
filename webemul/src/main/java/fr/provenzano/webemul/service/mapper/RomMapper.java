@@ -8,14 +8,10 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Rom and its DTO RomDTO.
  */
-@Mapper(componentModel = "spring", uses = {ConsoleMapper.class, GenreMapper.class})
+@Mapper(componentModel = "spring", uses = {})
 public interface RomMapper extends EntityMapper<RomDTO, Rom> {
 
-    @Mapping(source = "console.id", target = "consoleId")
-    RomDTO toDto(Rom rom);
 
-    @Mapping(source = "consoleId", target = "console")
-    Rom toEntity(RomDTO romDTO);
 
     default Rom fromId(Long id) {
         if (id == null) {

@@ -381,6 +381,23 @@
 			<artifactId>api-java</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		
+		<!-- Web Sockets -->
+	    <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-websocket</artifactId>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-messaging</artifactId>
+	    </dependency>
+	    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.3.1</version>
+</dependency>
+		
 
 	</dependencies>
 

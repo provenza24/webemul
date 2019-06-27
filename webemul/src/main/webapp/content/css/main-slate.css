@@ -6,6 +6,10 @@ body > .angular-bootstrap-contextmenu.dropdown {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+.box {
+	cursor: pointer;
+}
+
 .funkyradio div {
   clear: both;
   overflow: hidden;

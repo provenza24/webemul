@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import fr.provenzano.webemul.service.ConsoleService;
 import fr.provenzano.webemul.service.RomService;
 import fr.provenzano.webemul.service.dto.ConsoleDTO;
 import fr.provenzano.webemul.service.dto.RomDTO;
+import fr.provenzano.webemul.service.dto.ScanDTO;
 import fr.provenzano.webemul.service.dto.ScannedRomDTO;
 
 @RestController
@@ -26,10 +28,13 @@ public class ScanResource {
 	private final RomService romService;
     
     private final ConsoleService consoleService;
+    
+    private final SimpMessagingTemplate template;
 	
-    public ScanResource(RomService romService, ConsoleService consoleService) {
+    public ScanResource(RomService romService, ConsoleService consoleService, SimpMessagingTemplate template) {
         this.romService = romService;
         this.consoleService = consoleService;
+        this.template = template;
     }
     
     @GetMapping("/scan")
@@ -39,10 +44,14 @@ public class ScanResource {
     	List<String> filenames = new ArrayList<>();
     	List<ScannedRomDTO> scannedRomDTOs = new ArrayList<>();
     	
+    	List<Rom> databaseRoms = consoleService.findConsoleRoms(Long.parseLong(consoleId));
+    	
     	ConsoleDTO consoleDTO = consoleService.findOne(Long.parseLong(consoleId));    	
     	String romsFolderPath = consoleDTO.getPathRomsFolder();
         File romsFolder = new File(romsFolderPath);
         File[] filesList = romsFolder.listFiles();
+        int totalFilesToCheck = filesList.length + databaseRoms.size();
+        int index = 0;
         for(File f : filesList){
             if(f.isFile()){
             	filenames.add(f.getAbsolutePath());
@@ -58,18 +67,22 @@ public class ScanResource {
                 romDTO.setName(name);
                 romDTO.setConsoleId(consoleDTO.getId());
                 boolean added = romService.saveByFilePath(romDTO);
-                if (added) {
-                	scannedRomDTOs.add(new ScannedRomDTO(f.getName(), ScannedRomDTO.ScannedRomStatus.ADDED));
-                }                
+                if (added) {                	
+                	scannedRomDTOs.add(new ScannedRomDTO(f.getName(), ScannedRomDTO.ScannedRomStatus.ADDED));                	                
+                }               
             }
+            index++;
+            template.convertAndSend("/topic/scan-console", new ScanDTO("Vérification des roms du répertoire ...", (int)(index*100 / totalFilesToCheck)));                	        	           
         }
-        
-        List<Rom> databaseRoms = consoleService.findConsoleRoms(Long.parseLong(consoleId));
+                
         for (Rom rom : databaseRoms) {
 			if (!filenames.contains(rom.getPathFile())) {
+				index++;
 				scannedRomDTOs.add(new ScannedRomDTO(rom.getName(), ScannedRomDTO.ScannedRomStatus.DELETED));             
-				romService.delete(rom.getId());
+				romService.delete(rom.getId());				
 			}
+			index++;
+			template.convertAndSend("/topic/scan-console", new ScanDTO("Vérification des roms de la base de données ...", (int)(index*100 / totalFilesToCheck)));                	
 		}
         
         return scannedRomDTOs;    	

@@ -16,7 +16,8 @@
             'ngToast',
             'ngTagsInput',
             'pageslide-directive',            
-            'ui.bootstrap.contextMenu'
+            'ui.bootstrap.contextMenu',
+            'ngStomp'
             
             // jhipster-needle-angularjs-add-module JHipster will add new module here
         ])

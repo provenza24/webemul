@@ -1,10 +1,14 @@
 package fr.provenzano.webemul.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -125,6 +129,13 @@ public class TheGamesDbServiceImpl implements TheGamesDbService {
 						JSONArray jsonGamesObject = (JSONArray) jsonDataObject.get("games");
 						JSONObject jsonGameObject = (JSONObject) jsonGamesObject.get(i);
 						JSONArray jsonGenresObject = (JSONArray) jsonGameObject.get("genres");
+						String releaseDate = (String) jsonGameObject.get("release_date");
+						if (StringUtils.isNotBlank(releaseDate)) {							
+							try {
+								romDTO.setReleaseDate(new SimpleDateFormat("yyyy-MM-dd").parse(releaseDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+							} catch (ParseException e) {								
+							}
+						}
 						for (int j = 0; j < jsonGenresObject.length(); j++) {
 							Integer genre = (Integer) jsonGenresObject.get(j);
 							GenreDTO genreDTO = genreService.findOne(genre.longValue());

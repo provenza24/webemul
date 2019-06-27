@@ -43,6 +43,10 @@
             "fieldName": "cover",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "releaseDate",
+            "fieldType": "LocalDate"
         }
     ],
     "changelogDate": "20181214132230",

@@ -1,59 +1,10 @@
-entity Console {
-	abbreviation String required
-    name String required
-    pathIcon String required
-    pathControllerIcon String required
-    manufacturer String
-    generation Integer
-    bits Integer    
-    resume String 
-    pathRomsFolder String
-    tgdbId Integer required
-}
-
 entity Rom {
 	name String required        
     pathFile String required
     extension String
     pathCover String
     cover Blob
-}
-
-entity Emulator {
-	name String required
-    version String required
-    pathIcon String
-}
-
-entity Genre {
-	name String required    
-}
-
-entity Parameter {
-	name String required
-    label String required
-    value String required
-    type ParameterType required
-}
-
-enum ParameterType {
-	SIMPLE, TAGS, SWITCH, NUMERIC
-}
-
-relationship OneToMany {
-  Console{roms} to Rom
-}
-
-relationship ManyToMany {
-  Console{emulators} to Emulator
-}
-
-relationship ManyToMany {
-  Rom{genres} to Genre
-}
-
-relationship ManyToOne {
-  Console{defaultEmulator} to Emulator
+    releaseDate LocalDate
 }
 
 dto * with mapstruct

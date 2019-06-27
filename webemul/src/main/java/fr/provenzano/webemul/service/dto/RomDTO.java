@@ -1,12 +1,14 @@
 package fr.provenzano.webemul.service.dto;
 
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
 import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
 
 /**
  * A DTO for the Rom entity.
@@ -32,6 +34,8 @@ public class RomDTO implements Serializable {
     private Long consoleId;
 
     private Set<GenreDTO> genres = new HashSet<>();
+    
+    private LocalDate releaseDate;
 
     public Long getId() {
         return id;
@@ -105,7 +109,15 @@ public class RomDTO implements Serializable {
         this.genres = genres;
     }
 
-    @Override
+    public LocalDate getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(LocalDate releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Rom Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockRom, MockConsole, MockGenre;
+        var MockEntity, MockPreviousState, MockRom;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,8 +13,6 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockRom = jasmine.createSpy('MockRom');
-            MockConsole = jasmine.createSpy('MockConsole');
-            MockGenre = jasmine.createSpy('MockGenre');
             
 
             var locals = {
@@ -22,9 +20,7 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Rom': MockRom,
-                'Console': MockConsole,
-                'Genre': MockGenre
+                'Rom': MockRom
             };
             createController = function() {
                 $injector.get('$controller')("RomDetailController", locals);
