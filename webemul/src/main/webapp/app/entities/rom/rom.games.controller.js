@@ -16,9 +16,10 @@
 			vm.rom = result;
 			TheGamesDbGames.query({name : vm.rom.name, consoleId: vm.rom.consoleId}, function(result) {
 				vm.games = result;
-				if (vm.games.length==1) {
-					download(vm.games[0].id);
-				} else {
+				var matchingGameId = getMatchingGame(vm.rom.name, vm.games);
+				if (matchingGameId!=null) {
+					download(matchingGameId);
+				} else {					
 					vm.loading = false;
 				}
 			}, function (error) {
@@ -29,6 +30,18 @@
 			AlertService.error("Error while retrieving data from thegamesdb.net website", error);
 			vm.loading = false;
 		});
+		
+		function getMatchingGame(searchedGame, gameList) {
+			if (gameList.length==1) {
+				return gameList[0].id;
+			}
+			for (var i=0; i<gameList.length;i++) {
+				if (gameList[i].game_title.toUpperCase() == searchedGame.toUpperCase()) {
+					return gameList[i].id;
+				}
+			}
+			return null;
+		}
 			
 		function clear () {
             $uibModalInstance.dismiss('cancel');

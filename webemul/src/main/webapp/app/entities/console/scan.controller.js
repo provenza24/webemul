@@ -25,7 +25,9 @@
             ConsoleScan.query({consoleId: $stateParams.id}, function(result) {
             	vm.updatedRoms = result;  
             	vm.loading = false;
+            	$stomp.disconnect();
             }, function (error) {
+            	$stomp.disconnect();
             	vm.loading = false;		 
             	AlertService.error("Erreur lors de la mise à jour des roms de la console", error);
             });            

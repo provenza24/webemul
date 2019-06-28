@@ -1,6 +1,6 @@
 <div>
 
-	<h1 class="page-header">Video Game Console</h1>
+	<h1 class="page-header">Consoles de jeux disponibles</h1>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -8,7 +8,7 @@
                 <button class="btn btn-primary" ui-sref="console.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
-                        Add console
+                        Ajouter
                     </span>
                 </button>
             </div>
@@ -50,13 +50,14 @@
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
-                        	<button ng-show="console.pathRomsFolder" type="submit" 
+                        	<button popover-trigger="mouseenter" uib-popover="Mettre à jour les roms" popover-placement="left" 
+                        			ng-show="console.pathRomsFolder" type="submit" 
                         			ui-sref="console-scan({id:console.id, name: console.abbreviation})"
-                                   class="btn btn-success btn-xs">
+                                   class="btn btn-success btn-md">
                                 <span class="glyphicon glyphicon-refresh"></span>
                                 <span class="hidden-sm-down"></span>
                             </button>
-                            <button type="submit"
+                            <!-- button type="submit"
                                     ui-sref="console-detail({id:console.id})"
                                     class="btn btn-info btn-xs">
                                 <span class="glyphicon glyphicon-eye-open"></span>
@@ -73,7 +74,7 @@
                                     class="btn btn-danger btn-xs">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-sm-down"></span>
-                            </button>
+                            </button-->
                         </div>
                     </td>
                 </tr>

@@ -440,9 +440,12 @@ thead {
 	vertical-align: middle;
 }
 
-.popover {
+/*.popover {
 	max-width: 100%;
 	/* Max Width of the popover (depending on the container!) */
+}*/
+.popover-content {
+width: 200px;
 }
 
 /** PARAMETERS PAGE */
