@@ -52,7 +52,7 @@
             }
             
             $rootScope.search = function(searchTerm) {
-            	var form = {page: 1, itemsPerPage: 20, queryCount: 0, totalItems: 0, predicate: 'name', reverse:true, display: 'LINE', consoleId: '', firstLetterRange: '', gameName: searchTerm, genre:{id:''}};
+            	var form = {page: 1, itemsPerPage: 20, queryCount: 0, totalItems: 0, predicate: 'name', reverse:true, display: 'LINE', console:{id:''}, firstLetterRange: '', gameName: searchTerm, genre:{id:''}};
     			RomPageConfiguration.setForm(form);    			
     			$state.go('rom', {}, { reload: true });
             }

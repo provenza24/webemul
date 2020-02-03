@@ -1,23 +1,14 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true" ng-click="vm.clear()">&times;</button>
-	<h4 ng-show="vm.loading" class="modal-title" id="myRomLabel">Mise à jour en cours ({{vm.name}})</h4>
-	<h4 ng-show="!vm.loading" class="modal-title" id="myRomLabel">Bilan de la mise à jour ({{vm.name}})</h4>
+		aria-hidden="true" ng-click="vm.clear()">&times;</button>	
+	<h4 class="modal-title" id="myRomLabel">Mise à jour des roms de la {{vm.name}} ({{vm.progress.progression}}%)</h4>
 </div>
 
 <div class="modal-body" style="min-height:100px;max-height:300px; overflow: auto; position:relative">
-
-	<div ng-show="vm.loading">
-		<p ng-show="vm.progress.progression < 100" class="text-center">{{vm.progress.message}}</p>
-		<div class="progress">
-			<div ng-class="{'active': vm.progress.progression < 100, 'progress-bar-striped': vm.progress.progression < 100}" class="progress-bar progress-bar-striped position-relative" role="progressbar"
-				aria-valuenow="{{vm.progress.progression}}" aria-valuemin="0"
-				aria-valuemax="100"
-				ng-style="{width : ( vm.progress.progression + '%' ) }">
-				{{vm.progress.progression}}%
-			</div>
-		</div>
-	</div>				
+	
+	<div ng-show="vm.loading" style="margin-top:50px">
+		<img src="content/images/ajax-loader.gif"  class="img-responsive center-block" />
+	</div> 
 	
 	<div ng-show="!vm.loading && vm.updatedRoms && vm.updatedRoms.length>0" ng-repeat="updatedRom in vm.updatedRoms">
 		<span ng-show="updatedRom.status=='DELETED'" style="color:red" class="glyphicon glyphicon-remove"></span>

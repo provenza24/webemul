@@ -1,5 +1,6 @@
 package fr.provenzano.webemul.web.rest;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.provenzano.webemul.domain.Console;
 import fr.provenzano.webemul.domain.Rom;
@@ -37,6 +41,7 @@ import fr.provenzano.webemul.service.GenreService;
 import fr.provenzano.webemul.service.RomService;
 import fr.provenzano.webemul.service.dto.GenreDTO;
 import fr.provenzano.webemul.service.dto.RomDTO;
+import fr.provenzano.webemul.service.dto.RomSearchDTO;
 import fr.provenzano.webemul.web.rest.errors.BadRequestAlertException;
 import fr.provenzano.webemul.web.rest.util.HeaderUtil;
 import fr.provenzano.webemul.web.rest.util.PaginationUtil;
@@ -115,29 +120,38 @@ public class RomResource {
      */
     @GetMapping("/roms")
     @Timed
-    public ResponseEntity<List<RomDTO>> getAllRoms(Pageable pageable, @RequestParam("consoleId")String consoleId, @RequestParam("firstLetterRange")String firstLetterRange,
-    		@RequestParam("gameName")String gameName, @RequestParam("genreId")String genreId) {    
+    public ResponseEntity<List<RomDTO>> getAllRoms(Pageable pageable, @RequestParam("romSearch")String romSearch) {    
         log.debug("REST request to get a page of Roms");
         
-        SpecificationsHelper<Rom> specificationsHelper = new SpecificationsHelper<>();
-        if (StringUtils.isNotBlank(consoleId)) {
-        	Console console = consoleRepository.findOne(Long.parseLong(consoleId));
-        	specificationsHelper.addSpecification(RomSpecifications.compareConsole(Rom_.console, console));
-        }
-        if (StringUtils.isNotBlank(firstLetterRange)) {
-        	specificationsHelper.addSpecification(RomSpecifications.compareFirstLetter(Rom_.name, firstLetterRange));
-        }
-        if (StringUtils.isNotBlank(gameName)) {
-        	specificationsHelper.addSpecification(RomSpecifications.nameContainsIgnoreCase(Rom_.name, gameName));
-        }     
-        if (StringUtils.isNotBlank(genreId)) {        	
-        	GenreDTO genreDTO = genreService.findOne(Long.parseLong(genreId));
-        	specificationsHelper.addSpecification(RomSpecifications.compareGenre(genreDTO));
-        }
+        ObjectMapper mapper = new ObjectMapper();    	        	
+		try {
+			RomSearchDTO romSearchDTO = mapper.readValue(romSearch, RomSearchDTO.class);
+			
+			SpecificationsHelper<Rom> specificationsHelper = new SpecificationsHelper<>();
+	        if (romSearchDTO.getConsoleId()!=null) {
+	        	Console console = consoleRepository.findOne(romSearchDTO.getConsoleId());
+	        	specificationsHelper.addSpecification(RomSpecifications.compareConsole(Rom_.console, console));
+	        }
+	        if (StringUtils.isNotBlank(romSearchDTO.getFirstLetterRange())) {
+	        	specificationsHelper.addSpecification(RomSpecifications.compareFirstLetter(Rom_.name, romSearchDTO.getFirstLetterRange()));
+	        }
+	        if (StringUtils.isNotBlank(romSearchDTO.getGameName())) {
+	        	specificationsHelper.addSpecification(RomSpecifications.nameContainsIgnoreCase(Rom_.name, romSearchDTO.getGameName()));
+	        }     
+	        if (romSearchDTO.getGenreId()!=null) {        	
+	        	GenreDTO genreDTO = genreService.findOne(romSearchDTO.getGenreId());
+	        	specificationsHelper.addSpecification(RomSpecifications.compareGenre(genreDTO));
+	        }
+	        
+	        Page<RomDTO> page = romService.findAll(pageable, specificationsHelper.getSpecifications());
+	        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/roms");
+	        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			throw new BadRequestAlertException("Erreur lors de la recherche", "rom", ""); 
+		}
         
-        Page<RomDTO> page = romService.findAll(pageable, specificationsHelper.getSpecifications());
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/roms");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        
     }   
 
     /**

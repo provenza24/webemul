@@ -25,7 +25,8 @@
             ConsoleScan.query({consoleId: $stateParams.id}, function(result) {
             	vm.updatedRoms = result;  
             	vm.loading = false;
-            	$stomp.disconnect();
+            	//$stomp.disconnect();            	
+            	vm.progress.progression = 100;            	
             }, function (error) {
             	$stomp.disconnect();
             	vm.loading = false;		 

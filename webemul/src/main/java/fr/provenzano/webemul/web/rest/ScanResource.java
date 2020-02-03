@@ -51,6 +51,7 @@ public class ScanResource {
         File romsFolder = new File(romsFolderPath);
         File[] filesList = romsFolder.listFiles();
         int totalFilesToCheck = filesList.length + databaseRoms.size();
+        //System.err.println("########### Total ########### ->"+totalFilesToCheck);
         int index = 0;
         for(File f : filesList){
             if(f.isFile()){
@@ -72,18 +73,23 @@ public class ScanResource {
                 }               
             }
             index++;
-            template.convertAndSend("/topic/scan-console", new ScanDTO("Vérification des roms du répertoire ...", (int)(index*100 / totalFilesToCheck)));                	        	           
+            int percent = (int)(index*100 / totalFilesToCheck);
+            //System.err.println("### sending ### ->"+percent);
+            template.convertAndSend("/topic/scan-console", new ScanDTO("Vérification des roms du répertoire ...", percent));                	        	           
         }
                 
         for (Rom rom : databaseRoms) {
-			if (!filenames.contains(rom.getPathFile())) {
-				index++;
+			if (!filenames.contains(rom.getPathFile())) {				
 				scannedRomDTOs.add(new ScannedRomDTO(rom.getName(), ScannedRomDTO.ScannedRomStatus.DELETED));             
 				romService.delete(rom.getId());				
 			}
 			index++;
-			template.convertAndSend("/topic/scan-console", new ScanDTO("Vérification des roms de la base de données ...", (int)(index*100 / totalFilesToCheck)));                	
+			int percent = (int)(index*100 / totalFilesToCheck);
+            //System.err.println("### sending ### ->"+percent);
+			template.convertAndSend("/topic/scan-console", new ScanDTO("Vérification des roms de la base de données ...", percent));                	
 		}
+        
+        //System.err.println("##### index ##### ->"+index);
         
         return scannedRomDTOs;    	
     }
